@@ -12,6 +12,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.border.TitledBorder;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainFrame extends JFrame {
 
@@ -51,10 +53,14 @@ public class MainFrame extends JFrame {
 		JMenu mnNewMenu = new JMenu("Estudiante");
 		menuBar.add(mnNewMenu);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Visualizar");
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Visualizar listado");
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Agregar");
+		mntmNewMenuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem_2);
 		
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Modificar");
@@ -69,7 +75,7 @@ public class MainFrame extends JFrame {
 		JMenu mnNewMenu_1 = new JMenu("Asignatura");
 		menuBar.add(mnNewMenu_1);
 		
-		JMenuItem mntmNewMenuItem_14 = new JMenuItem("Visualizar");
+		JMenuItem mntmNewMenuItem_14 = new JMenuItem("Visualizar listado");
 		mnNewMenu_1.add(mntmNewMenuItem_14);
 		
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Agregar");
@@ -84,14 +90,14 @@ public class MainFrame extends JFrame {
 		JMenu mnNewMenu_2 = new JMenu("Grupo");
 		menuBar.add(mnNewMenu_2);
 		
-		JMenuItem mntmNewMenuItem_15 = new JMenuItem("Visualizar");
+		JMenuItem mntmNewMenuItem_15 = new JMenuItem("Visualizar listado");
 		mnNewMenu_2.add(mntmNewMenuItem_15);
 		
-		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Agregar");
-		mnNewMenu_2.add(mntmNewMenuItem_9);
-		
-		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Modificar");
+		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Agregar");
 		mnNewMenu_2.add(mntmNewMenuItem_8);
+		
+		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Modificar");
+		mnNewMenu_2.add(mntmNewMenuItem_9);
 		
 		JMenuItem mntmNewMenuItem_10 = new JMenuItem("Eliminar");
 		mnNewMenu_2.add(mntmNewMenuItem_10);
@@ -99,7 +105,7 @@ public class MainFrame extends JFrame {
 		JMenu mnNewMenu_3 = new JMenu("Periodo Acad\u00E9mico");
 		menuBar.add(mnNewMenu_3);
 		
-		JMenuItem mntmVi = new JMenuItem("Visualizar");
+		JMenuItem mntmVi = new JMenuItem("Visualizar listado");
 		mnNewMenu_3.add(mntmVi);
 		
 		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Agregar");
