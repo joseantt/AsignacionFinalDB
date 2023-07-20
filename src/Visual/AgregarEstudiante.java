@@ -18,12 +18,12 @@ import javax.swing.JComboBox;
 public class AgregarEstudiante extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField txt_matricula;
+	private JTextField txt_primerNombre;
+	private JTextField txt_segundoNombre;
+	private JTextField txt_primerApellido;
+	private JTextField txt_segundoApellido;
+	private JTextField txt_Direccion;
 
 	/**
 	 * Launch the application.
@@ -53,79 +53,79 @@ public class AgregarEstudiante extends JDialog {
 		lblNewLabel.setBounds(38, 41, 77, 16);
 		contentPanel.add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(121, 38, 209, 22);
-		contentPanel.add(textField);
-		textField.setColumns(10);
+		txt_matricula = new JTextField();
+		txt_matricula.setBounds(121, 38, 209, 22);
+		contentPanel.add(txt_matricula);
+		txt_matricula.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Primer Nombre:");
 		lblNombre.setBounds(38, 101, 100, 16);
 		contentPanel.add(lblNombre);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(150, 98, 180, 22);
-		contentPanel.add(textField_1);
+		txt_primerNombre = new JTextField();
+		txt_primerNombre.setColumns(10);
+		txt_primerNombre.setBounds(150, 98, 180, 22);
+		contentPanel.add(txt_primerNombre);
 		
 		JLabel lblSegundoNombre = new JLabel("Segundo Nombre:");
 		lblSegundoNombre.setBounds(367, 104, 111, 16);
 		contentPanel.add(lblSegundoNombre);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(490, 101, 180, 22);
-		contentPanel.add(textField_2);
+		txt_segundoNombre = new JTextField();
+		txt_segundoNombre.setColumns(10);
+		txt_segundoNombre.setBounds(490, 101, 180, 22);
+		contentPanel.add(txt_segundoNombre);
 		
 		JLabel lblPrimerApellido = new JLabel("Primer Apellido:");
 		lblPrimerApellido.setBounds(38, 146, 100, 16);
 		contentPanel.add(lblPrimerApellido);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(150, 143, 180, 22);
-		contentPanel.add(textField_3);
+		txt_primerApellido = new JTextField();
+		txt_primerApellido.setColumns(10);
+		txt_primerApellido.setBounds(150, 143, 180, 22);
+		contentPanel.add(txt_primerApellido);
 		
 		JLabel lblSegundoApellido = new JLabel("Segundo Apellido:");
 		lblSegundoApellido.setBounds(367, 149, 111, 16);
 		contentPanel.add(lblSegundoApellido);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(490, 146, 180, 22);
-		contentPanel.add(textField_4);
+		txt_segundoApellido = new JTextField();
+		txt_segundoApellido.setColumns(10);
+		txt_segundoApellido.setBounds(490, 146, 180, 22);
+		contentPanel.add(txt_segundoApellido);
 		
 		JLabel lblCarrera = new JLabel("Carrera:");
 		lblCarrera.setBounds(38, 227, 69, 16);
 		contentPanel.add(lblCarrera);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(121, 227, 209, 22);
-		contentPanel.add(comboBox);
+		JComboBox cbx_Carrera = new JComboBox();
+		cbx_Carrera.setBounds(121, 227, 209, 22);
+		contentPanel.add(cbx_Carrera);
 		
 		JLabel lblCategoriaDePago = new JLabel("Categoria de pago:");
 		lblCategoriaDePago.setBounds(367, 279, 123, 16);
 		contentPanel.add(lblCategoriaDePago);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(490, 276, 180, 22);
-		contentPanel.add(comboBox_1);
+		JComboBox cbx_Pago = new JComboBox();
+		cbx_Pago.setBounds(490, 276, 180, 22);
+		contentPanel.add(cbx_Pago);
 		
 		JLabel lblNacionalidad = new JLabel("Nacionalidad:");
 		lblNacionalidad.setBounds(38, 282, 100, 16);
 		contentPanel.add(lblNacionalidad);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(121, 279, 209, 22);
-		contentPanel.add(comboBox_2);
+		JComboBox cbx_Nacionalidad = new JComboBox();
+		cbx_Nacionalidad.setBounds(121, 279, 209, 22);
+		contentPanel.add(cbx_Nacionalidad);
 		
 		JLabel lblDireccion = new JLabel("Direcci\u00F3n:");
 		lblDireccion.setBounds(38, 343, 69, 16);
 		contentPanel.add(lblDireccion);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(121, 340, 549, 22);
-		contentPanel.add(textField_5);
+		txt_Direccion = new JTextField();
+		txt_Direccion.setColumns(10);
+		txt_Direccion.setBounds(121, 340, 549, 22);
+		contentPanel.add(txt_Direccion);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new LineBorder(Color.LIGHT_GRAY));
