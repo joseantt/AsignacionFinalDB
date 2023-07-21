@@ -1,5 +1,6 @@
 package Visual;
 
+import java.sql.*;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
@@ -8,6 +9,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import Database.ConexionDB;
+
 import java.awt.Color;
 
 public class ListadoEstudiantes extends JDialog {
@@ -21,6 +25,14 @@ public class ListadoEstudiantes extends JDialog {
 		try {
 			ListadoEstudiantes dialog = new ListadoEstudiantes();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			
+			String sql = "SELECT * FROM Estudiante";
+			Connection conexion = null;
+			PreparedStatement p = null;
+			ResultSet rs = null;
+			conexion = ConexionDB.conectarDB();
+			p = conexion.prepareStatement(sql);
+			rs = p.executeQuery();
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
