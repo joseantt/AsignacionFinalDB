@@ -59,11 +59,11 @@ public class AgregarEstudiante extends JDialog {
 		contentPanel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Matricula:");
-		lblNewLabel.setBounds(38, 41, 77, 16);
+		lblNewLabel.setBounds(38, 24, 77, 16);
 		contentPanel.add(lblNewLabel);
 		
 		txt_matricula = new JTextField();
-		txt_matricula.setBounds(121, 38, 209, 22);
+		txt_matricula.setBounds(38, 50, 209, 22);
 		contentPanel.add(txt_matricula);
 		txt_matricula.setColumns(10);
 		

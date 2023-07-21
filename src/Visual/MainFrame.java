@@ -61,6 +61,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				AgregarEstudiante agregarEstudiante = new AgregarEstudiante();
 				agregarEstudiante.setVisible(true);
+				agregarEstudiante.setModal(true);
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_2);
@@ -78,6 +79,8 @@ public class MainFrame extends JFrame {
 		mntmNewMenuItem_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AgregarAsignatura agregarAsignatura = new AgregarAsignatura();
+				agregarAsignatura.setVisible(true);
+				agregarAsignatura.setModal(true);
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_5);
@@ -101,7 +104,8 @@ public class MainFrame extends JFrame {
 		mntmNewMenuItem_11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AgregarPeriodoAcademico agregarPeriodoAcademico = new AgregarPeriodoAcademico();
-				
+				agregarPeriodoAcademico.setVisible(true);
+				agregarPeriodoAcademico.setModal(true);
 			}
 		});
 		mnNewMenu_3.add(mntmNewMenuItem_11);
