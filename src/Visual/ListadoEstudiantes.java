@@ -97,7 +97,7 @@ public class ListadoEstudiantes extends JDialog {
 		}
 	}
 
-	
+
 	private void actualizarFilasEstudiante(DefaultTableModel model) {
 		Connection conexion = ConexionDB.conectarDB();
 		
