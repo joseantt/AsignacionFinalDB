@@ -60,6 +60,7 @@ public class MainFrame extends JFrame {
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				AgregarEstudiante agregarEstudiante = new AgregarEstudiante();
+				agregarEstudiante.setVisible(true);
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_2);
@@ -100,6 +101,7 @@ public class MainFrame extends JFrame {
 		mntmNewMenuItem_11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AgregarPeriodoAcademico agregarPeriodoAcademico = new AgregarPeriodoAcademico();
+				
 			}
 		});
 		mnNewMenu_3.add(mntmNewMenuItem_11);

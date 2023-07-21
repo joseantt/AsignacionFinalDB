@@ -40,6 +40,7 @@ public class ListadoEstudiantes extends JDialog {
 		}
 	}
 
+	
 	/**
 	 * Create the dialog.
 	 */
@@ -59,7 +60,7 @@ public class ListadoEstudiantes extends JDialog {
 				JScrollPane scrollPane = new JScrollPane();
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
-					//Se crea un scrollPane, se añade la tabla al scroll, se edita el modelo y se presenta la tabla
+					//Se crea un scrollPane, se aï¿½ade la tabla al scroll, se edita el modelo y se presenta la tabla
 					TablaEstudiante = new JTable();
 					String[] columnas = {"Matricula", "Nombre1", "Nombre2", "Apellido1", "Apellido2", "Carrera", "CategoriaPago", "Nacionalidad", "Direccion"};
 					DefaultTableModel model = (DefaultTableModel) TablaEstudiante.getModel();
