@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
@@ -19,12 +20,18 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ListSelectionModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ListadoEstudiantes extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTable TablaEstudiante;
 	private JTable table;
+	private JButton btn_modificar;
+	private JButton btn_eliminar;
+	private String matricula = "";
 
 	/**
 	 * Launch the application.
@@ -62,6 +69,14 @@ public class ListadoEstudiantes extends JDialog {
 				{
 					//Se crea un scrollPane, se añade la tabla al scroll, se edita el modelo y se presenta la tabla
 					TablaEstudiante = new JTable();
+					TablaEstudiante.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							btn_modificar.setEnabled(true);
+							btn_eliminar.setEnabled(true);
+						}
+					});
+					TablaEstudiante.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 					String[] columnas = {"Matrícula", "Nombre1", "Nombre2", "Apellido1", "Apellido2", "Carrera", "CategoriaPago", "Nacionalidad", "Dirección"};
 					DefaultTableModel model = (DefaultTableModel) TablaEstudiante.getModel();
 					model.setColumnIdentifiers(columnas);
@@ -77,12 +92,41 @@ public class ListadoEstudiantes extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton btnNewButton_1 = new JButton("Modificar");
-				buttonPane.add(btnNewButton_1);
+				btn_modificar = new JButton("Modificar");
+				btn_modificar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						btn_modificar.setEnabled(false);
+						btn_eliminar.setEnabled(false);
+						TablaEstudiante.clearSelection();
+					}
+				});
+				btn_modificar.setEnabled(false);
+				buttonPane.add(btn_modificar);
 			}
 			{
-				JButton btnNewButton_2 = new JButton("Eliminar");
-				buttonPane.add(btnNewButton_2);
+				btn_eliminar = new JButton("Eliminar");
+				btn_eliminar.setEnabled(false);
+				btn_eliminar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						int selection = JOptionPane.showOptionDialog(null, "¿Está seguro de que desea continuar?",
+						        "Confirmar eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+						        new Object[] {"Si", "No"}, null);
+						
+						if(selection == 0) {
+							int indiceFilaSeleccionada = TablaEstudiante.getSelectedRow();
+							if(indiceFilaSeleccionada != 1) {
+								matricula = (String) TablaEstudiante.getValueAt(indiceFilaSeleccionada, 0);
+								eliminarEstudiante(matricula);
+								actualizarFilasEstudiante((DefaultTableModel)TablaEstudiante.getModel());
+							}
+							
+							TablaEstudiante.clearSelection();
+							btn_eliminar.setEnabled(false);
+							btn_modificar.setEnabled(false);
+						}
+					}
+				});
+				buttonPane.add(btn_eliminar);
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
@@ -100,7 +144,7 @@ public class ListadoEstudiantes extends JDialog {
 	
 	private void actualizarFilasEstudiante(DefaultTableModel model) {
 		Connection conexion = ConexionDB.conectarDB();
-		
+		model.setRowCount(0);
 		try {
 			String sql = "SELECT * FROM Estudiante";
 			PreparedStatement p = conexion.prepareStatement(sql);
@@ -126,5 +170,20 @@ public class ListadoEstudiantes extends JDialog {
 		catch(SQLException e) {
 			e.printStackTrace();
 		} 
+	}
+	private void eliminarEstudiante(String matricula) {
+		Connection conexion = ConexionDB.conectarDB();
+		try {
+			String sql = "DELETE FROM Estudiante WHERE Matricula = " + matricula;
+			Statement stm = conexion.createStatement();
+			int result = stm.executeUpdate(sql);
+			
+			//Hacer limitacion para delete
+			
+			conexion.close();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
