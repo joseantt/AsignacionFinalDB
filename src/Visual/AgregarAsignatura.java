@@ -35,6 +35,7 @@ public class AgregarAsignatura extends JDialog {
 		}
 	}
 
+	
 	/**
 	 * Create the dialog.
 	 */
