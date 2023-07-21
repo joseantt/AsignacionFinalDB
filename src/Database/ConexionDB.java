@@ -20,7 +20,6 @@ public class ConexionDB {
 		} catch (SQLException e) {
 			System.out.println("Error al conectar la base de datos.");
 			e.printStackTrace();
-			
 			return null;
 		}
 	}
