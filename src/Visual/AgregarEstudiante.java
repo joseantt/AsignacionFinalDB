@@ -12,8 +12,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class AgregarEstudiante extends JDialog {
 
@@ -24,6 +26,9 @@ public class AgregarEstudiante extends JDialog {
 	private JTextField txt_primerApellido;
 	private JTextField txt_segundoApellido;
 	private JTextField txt_Direccion;
+	private JComboBox cbx_Carrera;
+	private JComboBox cbx_Nacionalidad;
+	private JComboBox cbx_Pago;
 
 	/**
 	 * Launch the application.
@@ -99,7 +104,8 @@ public class AgregarEstudiante extends JDialog {
 		lblCarrera.setBounds(38, 227, 69, 16);
 		contentPanel.add(lblCarrera);
 		
-		JComboBox cbx_Carrera = new JComboBox();
+		cbx_Carrera = new JComboBox();
+		cbx_Carrera.setModel(new DefaultComboBoxModel(new String[] {"ICC", "ITT", "IIS", "DIR", "COM", "ARQ", "EDU", "FIL", "IESP", "IESE", "PSC", "NUT", "MED", "ADHA"}));
 		cbx_Carrera.setBounds(121, 227, 209, 22);
 		contentPanel.add(cbx_Carrera);
 		
@@ -107,7 +113,8 @@ public class AgregarEstudiante extends JDialog {
 		lblCategoriaDePago.setBounds(367, 279, 123, 16);
 		contentPanel.add(lblCategoriaDePago);
 		
-		JComboBox cbx_Pago = new JComboBox();
+		cbx_Pago = new JComboBox();
+		cbx_Pago.setModel(new DefaultComboBoxModel(new String[] {"UNI", "I", "IV", "IVA", "V", "XII", "XIII", "XXI"}));
 		cbx_Pago.setBounds(490, 276, 180, 22);
 		contentPanel.add(cbx_Pago);
 		
@@ -115,7 +122,8 @@ public class AgregarEstudiante extends JDialog {
 		lblNacionalidad.setBounds(38, 282, 100, 16);
 		contentPanel.add(lblNacionalidad);
 		
-		JComboBox cbx_Nacionalidad = new JComboBox();
+		cbx_Nacionalidad = new JComboBox();
+		cbx_Nacionalidad.setModel(new DefaultComboBoxModel(new String[] {"DOM", "ESP", "ITA", "BRA", "MEX", "USA", "JPN", "CAN", "FRA", "GBR", "DEU"}));
 		cbx_Nacionalidad.setBounds(121, 279, 209, 22);
 		contentPanel.add(cbx_Nacionalidad);
 		
@@ -136,6 +144,8 @@ public class AgregarEstudiante extends JDialog {
 				JButton okButton = new JButton("Agregar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
+						JOptionPane.showMessageDialog(null, "Se ha agregado el estudiante satisfactoriamente", "Información",JOptionPane.INFORMATION_MESSAGE);
+						limpiarCampos();
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -153,5 +163,17 @@ public class AgregarEstudiante extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+	
+	private void limpiarCampos() {
+		txt_matricula.setText("");
+		txt_primerNombre.setText("");
+		txt_segundoNombre.setText("");
+		txt_primerApellido.setText("");
+		txt_segundoApellido.setText("");
+		txt_Direccion.setText("");
+		cbx_Carrera.setSelectedIndex(0);
+		cbx_Nacionalidad.setSelectedIndex(0);
+		cbx_Pago.setSelectedIndex(0);
 	}
 }
