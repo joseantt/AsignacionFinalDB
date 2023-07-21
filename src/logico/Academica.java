@@ -13,6 +13,7 @@ public class Academica {
 	private ArrayList<Estudiante> estudiantes;
 	private static Academica academica = null;
 	
+	
 	public static Academica getAcademica() {
 		if (academica == null) {
 			academica = new Academica();
