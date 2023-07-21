@@ -31,4 +31,5 @@ public class Academica {
 		inscripciones = new ArrayList<Inscripcion>();
 		diasSemana = new ArrayList<DiaSemana>();
 	}
+	
 }
