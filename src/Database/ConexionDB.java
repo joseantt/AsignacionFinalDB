@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class ConexionDB {
 	
@@ -21,21 +22,24 @@ public class ConexionDB {
         }
 		catch(SQLException e) {
 			e.printStackTrace();
-			System.out.println("La conexión a la base de datos no pudo ser establecida");
+			System.out.println("La conexiÃ³n a la base de datos no pudo ser establecida");
 			return null;
 		}
 	}
 	
-	public void agregarFilaTabla(String[] valores, int cantCampos) {
+	public static void agregarFilaTabla(String nombreTabla, String[] valores, int cantCampos) {
 		try {
 			Connection conexion = ConexionDB.conectarDB();
 			
-			String sql = "INSERT Estudiante VALUES (";
-			for(int i = 0; i < cantCampos; i++) {
-				sql += "";
-			}
-			PreparedStatement p = conexion.prepareStatement(sql);
-			ResultSet rs = p.executeQuery();
+			String sql = queryInsert(nombreTabla, valores, cantCampos);
+			Statement stm = conexion.createStatement();
+			int result = stm.executeUpdate(sql);
+			
+			if(result > 0)
+				System.out.println("successfully inserted");
+			else
+				System.out.println(
+					"unsucessful insertion");
 			
 			conexion.close();
 		}
@@ -43,4 +47,18 @@ public class ConexionDB {
 			e.printStackTrace();
 		}
 	}
+	
+	private static String queryInsert(String nombreTabla, String[] valores, int cantCampos) {
+		String sql = "INSERT "+ nombreTabla +" VALUES (";
+		
+		for(int i = 0; i < cantCampos; i++) {
+			sql += "'"+valores[i]+"'";
+			if(i != cantCampos-1) {
+				sql += ',';
+			}
+		}
+		sql += ')';
+		
+		return sql;
+	} 
 }

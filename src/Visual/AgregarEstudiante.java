@@ -10,6 +10,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
+
+import Database.ConexionDB;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -144,9 +147,15 @@ public class AgregarEstudiante extends JDialog {
 				JButton okButton = new JButton("Agregar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						JOptionPane.showMessageDialog(null, "Se ha agregado el estudiante satisfactoriamente", "Información",JOptionPane.INFORMATION_MESSAGE);
+						String[] valores = {txt_matricula.getText(), txt_primerNombre.getText(), txt_segundoNombre.getText(),
+								txt_primerApellido.getText(), txt_segundoApellido.getText(),
+								(String)cbx_Carrera.getSelectedItem(), (String)cbx_Pago.getSelectedItem(),
+								(String)cbx_Nacionalidad.getSelectedItem(), txt_Direccion.getText()};
+						
+						ConexionDB.agregarFilaTabla("Estudiante", valores, 9);
+						JOptionPane.showMessageDialog(null, "Se ha agregado el estudiante satisfactoriamente", "InformaciÃ³n",JOptionPane.INFORMATION_MESSAGE);
 						limpiarCampos();
-					}
+					} 
 				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);

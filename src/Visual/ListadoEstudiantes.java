@@ -60,9 +60,9 @@ public class ListadoEstudiantes extends JDialog {
 				JScrollPane scrollPane = new JScrollPane();
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
-					//Se crea un scrollPane, se aï¿½ade la tabla al scroll, se edita el modelo y se presenta la tabla
+					//Se crea un scrollPane, se añade la tabla al scroll, se edita el modelo y se presenta la tabla
 					TablaEstudiante = new JTable();
-					String[] columnas = {"Matricula", "Nombre1", "Nombre2", "Apellido1", "Apellido2", "Carrera", "CategoriaPago", "Nacionalidad", "Direccion"};
+					String[] columnas = {"Matrícula", "Nombre1", "Nombre2", "Apellido1", "Apellido2", "Carrera", "CategoriaPago", "Nacionalidad", "Dirección"};
 					DefaultTableModel model = (DefaultTableModel) TablaEstudiante.getModel();
 					model.setColumnIdentifiers(columnas);
 					actualizarFilasEstudiante(model);
@@ -97,7 +97,7 @@ public class ListadoEstudiantes extends JDialog {
 		}
 	}
 
-
+	
 	private void actualizarFilasEstudiante(DefaultTableModel model) {
 		Connection conexion = ConexionDB.conectarDB();
 		
@@ -125,6 +125,6 @@ public class ListadoEstudiantes extends JDialog {
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 }
