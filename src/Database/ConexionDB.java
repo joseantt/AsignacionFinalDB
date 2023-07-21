@@ -35,11 +35,7 @@ public class ConexionDB {
 			Statement stm = conexion.createStatement();
 			int result = stm.executeUpdate(sql);
 			
-			if(result > 0)
-				System.out.println("successfully inserted");
-			else
-				System.out.println(
-					"unsucessful insertion");
+			//Hacer limitacion para que no se ingrese un usuario con el mismo ID
 			
 			conexion.close();
 		}
