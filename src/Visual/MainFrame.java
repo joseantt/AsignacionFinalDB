@@ -59,15 +59,10 @@ public class MainFrame extends JFrame {
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Agregar");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				AgregarEstudiante agregarEstudiante = new AgregarEstudiante();
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_2);
-		
-		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Modificar");
-		mnNewMenu.add(mntmNewMenuItem_4);
-		
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Eliminar");
-		mnNewMenu.add(mntmNewMenuItem_3);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Horario");
 		mnNewMenu.add(mntmNewMenuItem);
@@ -79,13 +74,12 @@ public class MainFrame extends JFrame {
 		mnNewMenu_1.add(mntmNewMenuItem_14);
 		
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Agregar");
+		mntmNewMenuItem_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AgregarAsignatura agregarAsignatura = new AgregarAsignatura();
+			}
+		});
 		mnNewMenu_1.add(mntmNewMenuItem_5);
-		
-		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Modificar");
-		mnNewMenu_1.add(mntmNewMenuItem_6);
-		
-		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Eliminar");
-		mnNewMenu_1.add(mntmNewMenuItem_7);
 		
 		JMenu mnNewMenu_2 = new JMenu("Grupo");
 		menuBar.add(mnNewMenu_2);
@@ -96,12 +90,6 @@ public class MainFrame extends JFrame {
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Agregar");
 		mnNewMenu_2.add(mntmNewMenuItem_8);
 		
-		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Modificar");
-		mnNewMenu_2.add(mntmNewMenuItem_9);
-		
-		JMenuItem mntmNewMenuItem_10 = new JMenuItem("Eliminar");
-		mnNewMenu_2.add(mntmNewMenuItem_10);
-		
 		JMenu mnNewMenu_3 = new JMenu("Periodo Acad\u00E9mico");
 		menuBar.add(mnNewMenu_3);
 		
@@ -109,14 +97,13 @@ public class MainFrame extends JFrame {
 		mnNewMenu_3.add(mntmVi);
 		
 		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Agregar");
+		mntmNewMenuItem_11.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AgregarPeriodoAcademico agregarPeriodoAcademico = new AgregarPeriodoAcademico();
+			}
+		});
 		mnNewMenu_3.add(mntmNewMenuItem_11);
-		
-		JMenuItem mntmNewMenuItem_12 = new JMenuItem("Modificar");
-		mnNewMenu_3.add(mntmNewMenuItem_12);
-		
-		JMenuItem mntmNewMenuItem_13 = new JMenuItem("Eliminar");
-		mnNewMenu_3.add(mntmNewMenuItem_13);
-		
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, Color.DARK_GRAY));
 		contentPane.setLayout(new BorderLayout(0, 0));

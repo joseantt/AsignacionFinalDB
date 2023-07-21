@@ -31,5 +31,34 @@ public class Academica {
 		inscripciones = new ArrayList<Inscripcion>();
 		diasSemana = new ArrayList<DiaSemana>();
 	}
+
+	public ArrayList<Asignatura> getAsignaturas() {
+		return asignaturas;
+	}
+
+	public ArrayList<Grupo> getGrupos() {
+		return grupos;
+	}
+
+	public ArrayList<GrupoHorario> getGrupoHorarios() {
+		return grupoHorarios;
+	}
+
+	public ArrayList<PeriodoAcademico> getPeriodoAcademicos() {
+		return periodoAcademicos;
+	}
+
+	public ArrayList<Inscripcion> getInscripciones() {
+		return inscripciones;
+	}
+
+	public ArrayList<DiaSemana> getDiasSemana() {
+		return diasSemana;
+	}
+
+	public ArrayList<Estudiante> getEstudiantes() {
+		return estudiantes;
+	}
+	
 	
 }

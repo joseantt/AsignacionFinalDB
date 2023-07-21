@@ -12,13 +12,16 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.SpinnerNumberModel;
 
 public class AgregarAsignatura extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 	private JTextField textField_1;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -38,6 +41,7 @@ public class AgregarAsignatura extends JDialog {
 	public AgregarAsignatura() {
 		setTitle("Agregar Asignatura");
 		setBounds(100, 100, 627, 379);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -71,6 +75,7 @@ public class AgregarAsignatura extends JDialog {
 		}
 		{
 			JSpinner spinner = new JSpinner();
+			spinner.setModel(new SpinnerNumberModel(0, 0, 6, 1));
 			spinner.setBounds(113, 205, 56, 22);
 			contentPanel.add(spinner);
 		}
@@ -81,6 +86,7 @@ public class AgregarAsignatura extends JDialog {
 		}
 		{
 			JSpinner spinner = new JSpinner();
+			spinner.setModel(new SpinnerNumberModel(0, 0, 6, 1));
 			spinner.setBounds(298, 205, 56, 22);
 			contentPanel.add(spinner);
 		}
@@ -91,6 +97,7 @@ public class AgregarAsignatura extends JDialog {
 		}
 		{
 			JSpinner spinner = new JSpinner();
+			spinner.setModel(new SpinnerNumberModel(0, 0, 6, 1));
 			spinner.setBounds(497, 205, 56, 22);
 			contentPanel.add(spinner);
 		}
@@ -107,6 +114,11 @@ public class AgregarAsignatura extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

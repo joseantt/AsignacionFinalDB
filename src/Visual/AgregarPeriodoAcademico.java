@@ -15,12 +15,15 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.util.Calendar;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AgregarPeriodoAcademico extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 	private JTextField textField_1;
+	
 
 	/**
 	 * Launch the application.
@@ -41,6 +44,8 @@ public class AgregarPeriodoAcademico extends JDialog {
 	public AgregarPeriodoAcademico() {
 		setTitle("Agregar Periodo Acad\u00E9mico");
 		setBounds(100, 100, 772, 499);
+		setLocationRelativeTo(null);
+		setModal(true);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -175,6 +180,11 @@ public class AgregarPeriodoAcademico extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

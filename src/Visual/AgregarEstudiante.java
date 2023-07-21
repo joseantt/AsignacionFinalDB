@@ -44,6 +44,7 @@ public class AgregarEstudiante extends JDialog {
 	public AgregarEstudiante() {
 		setTitle("Agregar estudiante");
 		setBounds(100, 100, 749, 502);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -143,6 +144,11 @@ public class AgregarEstudiante extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
