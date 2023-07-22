@@ -11,13 +11,16 @@ public class ConexionDB {
 	
 	public static Connection conectarDB() {
 	
-		String url = "jdbc:sqlserver://LAPTOP-KQA2PJRS;"
+		String url = "jdbc:sqlserver://LAPTOP-M7KGMKK3\\RGSMSSQL;"
 				+ "Database=RegistroAcademico;"
-				+ "IntegratedSecurity=true;"
+				+ "IntegratedSecurity=false;"
 				+ "TrustServerCertificate=True;";
 		
+		String user = "general";
+		String pwd = "54321";
+		
 		try {
-            Connection conexion = DriverManager.getConnection(url);
+            Connection conexion = DriverManager.getConnection(url,user,pwd);
             return conexion;
         }
 		catch(SQLException e) {
