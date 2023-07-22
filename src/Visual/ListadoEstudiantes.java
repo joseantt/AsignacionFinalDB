@@ -102,9 +102,9 @@ public class ListadoEstudiantes extends JDialog {
 								(String)TablaEstudiante.getValueAt(indiceFilaSeleccionada, 0));
 							agregarEstudiante.setVisible(true);
 							agregarEstudiante.setModal(true);
+							actualizarFilasEstudiante((DefaultTableModel)TablaEstudiante.getModel());
 							indiceFilaSeleccionada = -1;
 						}
-						
 						btn_modificar.setEnabled(false);
 						btn_eliminar.setEnabled(false);
 						TablaEstudiante.clearSelection();

@@ -148,10 +148,23 @@ public class AgregarEstudiante extends JDialog {
 			{
 				JButton okButton = new JButton("Agregar");
 				if(matricula != null)
-					okButton.setName("Modificar");
+					okButton.setText("Modificar");
 				
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
+						if(matricula != null) {
+							String[] columnas = {"Nombre1", "Nombre2", "Apellido1", "Apellido2", "Carrera", "CategoriaPago", "Nacionalidad", "Direccion"};
+							String[] valores = {txt_primerNombre.getText(), txt_segundoNombre.getText(),
+									txt_primerApellido.getText(), txt_segundoApellido.getText(),
+									(String)cbx_Carrera.getSelectedItem(), (String)cbx_Pago.getSelectedItem(),
+									(String)cbx_Nacionalidad.getSelectedItem(), txt_Direccion.getText()};
+							String[] Pks = {"Matricula"};
+							String[] valoresPks = {txt_matricula.getText()};
+							ConexionDB.updateTabla("Estudiante", columnas, valores, 8, Pks, valoresPks, 1);						
+							JOptionPane.showMessageDialog(null, "Se ha modificado el estudiante satisfactoriamente", "Información",JOptionPane.INFORMATION_MESSAGE);
+							return;
+						}
+						
 						String[] valores = {txt_matricula.getText(), txt_primerNombre.getText(), txt_segundoNombre.getText(),
 								txt_primerApellido.getText(), txt_segundoApellido.getText(),
 								(String)cbx_Carrera.getSelectedItem(), (String)cbx_Pago.getSelectedItem(),

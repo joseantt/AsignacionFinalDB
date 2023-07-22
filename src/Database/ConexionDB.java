@@ -87,11 +87,11 @@ public class ConexionDB {
 		try {
 			Connection conexion = ConexionDB.conectarDB();
 			
-			String sql = queryInsert(nombreTabla, valores, cantCampos);
+			String sql = queryUpdate(nombreTabla, columnas, valores, cantColumns, Pks, valoresPks, cantPk);
 			Statement stm = conexion.createStatement();
 			int result = stm.executeUpdate(sql);
 			
-			//Hacer limitacion para que no se ingrese un usuario con el mismo ID
+			//Hacer limitacion para ete diparate
 			
 			conexion.close();
 		}
@@ -104,7 +104,7 @@ public class ConexionDB {
 		String sql = "UPDATE "+nombreTabla+" SET ";
 		for(int i = 0; i < cantColumns; i++) {
 			sql+= columnas[i]+" = "+ "'"+valores[i]+"'";
-			if(i != cantColumns) {
+			if(i != cantColumns-1) {
 				sql+= ", ";
 			}
 		}
@@ -112,7 +112,7 @@ public class ConexionDB {
 		sql += " WHERE ";
 		for(int j = 0; j < cantPk; j++) {
 			sql+= Pks[j]+" = "+ "'"+valoresPks[j]+"'";
-			if(j != cantPk) {
+			if(j != cantPk-1) {
 				sql+= " AND ";
 			}
 		}
