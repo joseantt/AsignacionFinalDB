@@ -8,6 +8,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 
@@ -36,7 +38,7 @@ public class AgregarEstudiante extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		try {
 			AgregarEstudiante dialog = new AgregarEstudiante();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -44,12 +46,12 @@ public class AgregarEstudiante extends JDialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	/**
 	 * Create the dialog.
 	 */
-	public AgregarEstudiante() {
+	public AgregarEstudiante(String matricula) {
 		setTitle("Agregar estudiante");
 		setBounds(100, 100, 749, 502);
 		setLocationRelativeTo(null);
@@ -145,6 +147,9 @@ public class AgregarEstudiante extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Agregar");
+				if(matricula != null)
+					okButton.setName("Modificar");
+				
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						String[] valores = {txt_matricula.getText(), txt_primerNombre.getText(), txt_segundoNombre.getText(),
@@ -172,6 +177,7 @@ public class AgregarEstudiante extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		establecerCampos(matricula);
 	}
 	
 	private void limpiarCampos() {
@@ -184,5 +190,51 @@ public class AgregarEstudiante extends JDialog {
 		cbx_Carrera.setSelectedIndex(0);
 		cbx_Nacionalidad.setSelectedIndex(0);
 		cbx_Pago.setSelectedIndex(0);
+	}
+	
+	private void establecerCampos(String matricula) {
+		if(matricula == null)
+			return;
+		try {
+			String[] pkNombres = {"Matricula"};
+			String[] pkValores = {matricula};
+			ResultSet rs = ConexionDB.buscarFilasTabla("Estudiante", pkNombres, pkValores, 1);
+			rs.next();
+			txt_matricula.setText(matricula);
+			txt_matricula.setEnabled(false);
+			txt_primerNombre.setText(rs.getString("Nombre1"));
+			txt_segundoNombre.setText(rs.getString("Nombre2"));
+			txt_primerApellido.setText(rs.getString("Apellido1"));
+			txt_segundoApellido.setText(rs.getString("Apellido2"));
+			txt_Direccion.setText(rs.getString("Direccion"));
+			
+			String item;
+			for(int i = 0; i < cbx_Carrera.getModel().getSize(); i++) {
+				item = (String)cbx_Carrera.getModel().getElementAt(i);
+				if(item.equalsIgnoreCase(rs.getString("Carrera"))) {
+					cbx_Carrera.setSelectedIndex(i);
+					break;
+				}
+			}
+			
+			for(int i = 0; i < cbx_Nacionalidad.getModel().getSize(); i++) {
+				item = (String)cbx_Nacionalidad.getModel().getElementAt(i);
+				if(item.equalsIgnoreCase(rs.getString("Nacionalidad"))) {
+					cbx_Nacionalidad.setSelectedIndex(i);
+					break;
+				}
+			}
+			
+			for(int i = 0; i < cbx_Pago.getModel().getSize(); i++) {
+				item = (String)cbx_Pago.getModel().getElementAt(i);
+				if(item.equalsIgnoreCase(rs.getString("CategoriaPago"))) {
+					cbx_Pago.setSelectedIndex(i);
+					break;
+				}
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
