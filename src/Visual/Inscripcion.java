@@ -41,6 +41,7 @@ public class Inscripcion extends JDialog {
 		}
 	}
 
+	
 	/**
 	 * Create the dialog.
 	 */
