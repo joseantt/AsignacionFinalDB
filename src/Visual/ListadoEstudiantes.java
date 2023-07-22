@@ -97,7 +97,7 @@ public class ListadoEstudiantes extends JDialog {
 				btn_modificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {				
 						indiceFilaSeleccionada = TablaEstudiante.getSelectedRow();
-						if(indiceFilaSeleccionada != 1) {
+						if(indiceFilaSeleccionada != -1) {
 							AgregarEstudiante agregarEstudiante = new AgregarEstudiante(
 								(String)TablaEstudiante.getValueAt(indiceFilaSeleccionada, 0));
 							agregarEstudiante.setVisible(true);

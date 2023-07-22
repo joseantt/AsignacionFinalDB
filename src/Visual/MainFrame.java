@@ -84,7 +84,7 @@ public class MainFrame extends JFrame {
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Agregar");
 		mntmNewMenuItem_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AgregarAsignatura agregarAsignatura = new AgregarAsignatura();
+				AgregarAsignatura agregarAsignatura = new AgregarAsignatura(null);
 				agregarAsignatura.setVisible(true);
 				agregarAsignatura.setModal(true);
 			}

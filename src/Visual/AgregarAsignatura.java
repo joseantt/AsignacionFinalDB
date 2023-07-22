@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import Database.ConexionDB;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,6 +22,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.SpinnerNumberModel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 
 public class AgregarAsignatura extends JDialog {
@@ -29,11 +35,14 @@ public class AgregarAsignatura extends JDialog {
 	private JTextField txtnombre;
 	private JButton btnagregar;
 	private String text = null;
+	private JSpinner spncreditos;
+	private JSpinner spnteoricas;
+	private JSpinner spnpracticas;
 	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		try {
 			AgregarAsignatura dialog = new AgregarAsignatura();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -42,12 +51,12 @@ public class AgregarAsignatura extends JDialog {
 			e.printStackTrace();
 		}
 	}
-
+	*/
 	
 	/**
 	 * Create the dialog.
 	 */
-	public AgregarAsignatura() {
+	public AgregarAsignatura(String codAsignatura) {
 		setTitle("Agregar Asignatura");
 		setBounds(100, 100, 575, 251);
 		setLocationRelativeTo(null);
@@ -64,17 +73,6 @@ public class AgregarAsignatura extends JDialog {
 		}
 		{
 			txtcodigo = new JTextField();
-			
-			txtcodigo.addKeyListener(new KeyAdapter() {
-				@Override
-				public void keyPressed(KeyEvent e) {
-					if (txtcodigo.getText().length() == 6) {
-						btnagregar.setEnabled(true);
-					}
-				}
-			});
-			
-			
 			txtcodigo.setBounds(92, 28, 171, 22);
 			contentPanel.add(txtcodigo);
 			txtcodigo.setColumns(10);
@@ -96,7 +94,7 @@ public class AgregarAsignatura extends JDialog {
 			contentPanel.add(lblCreditos);
 		}
 		{
-			JSpinner spncreditos = new JSpinner();
+			spncreditos = new JSpinner();
 			spncreditos.setModel(new SpinnerNumberModel(0, 0, 6, 1));
 			spncreditos.setBounds(92, 113, 56, 22);
 			contentPanel.add(spncreditos);
@@ -107,7 +105,7 @@ public class AgregarAsignatura extends JDialog {
 			contentPanel.add(lblHorasTericas);
 		}
 		{
-			JSpinner spnteoricas = new JSpinner();
+			spnteoricas = new JSpinner();
 			spnteoricas.setModel(new SpinnerNumberModel(0, 0, 6, 1));
 			spnteoricas.setBounds(273, 113, 56, 22);
 			contentPanel.add(spnteoricas);
@@ -118,7 +116,7 @@ public class AgregarAsignatura extends JDialog {
 			contentPanel.add(lblHorasPrs);
 		}
 		{
-			JSpinner spnpracticas = new JSpinner();
+			spnpracticas = new JSpinner();
 			spnpracticas.setModel(new SpinnerNumberModel(0, 0, 6, 1));
 			spnpracticas.setBounds(478, 113, 56, 22);
 			contentPanel.add(spnpracticas);
@@ -130,15 +128,51 @@ public class AgregarAsignatura extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnagregar = new JButton("Agregar");
-				btnagregar.setEnabled(false);
+				if(codAsignatura != null)
+					btnagregar.setText("Modificar");
 				
 				btnagregar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (txtcodigo.getText().length() != 6) {
-							JOptionPane.showMessageDialog(null,"Ha ingresado un codigo invalido","Error",JOptionPane.INFORMATION_MESSAGE);
-						}else {
+						if(codAsignatura != null) {
+							String[] columnas = {"Nombre", "Creditos", "HorasTeoricas", "HorasPracticas"};
+							String[] valores = {};
+							String[] Pks = {""};
+							String[] valoresPks = {txtcodigo.getText()};
 							
-						}
+							try {
+								Connection conexion = ConexionDB.conectarDB();
+								
+								String sql = "UPDATE Asignatura SET ";
+								sql += "Asignatura.Nombre"+" = '"+txtnombre.getText()+"'" + 
+								", Asignatura.Creditos = " + (Integer)spncreditos.getValue() +
+								", Asignatura.HorasTeoricas = " + (Integer)spnteoricas.getValue() + 
+										", Asignatura.HorasPracticas = " + (Integer)spnpracticas.getValue();								
+								sql += " WHERE "+ "CodAsignatura"+" = "+ "'"+txtcodigo.getText()+"'";
+								
+							
+								Statement stm = conexion.createStatement();
+								int result = stm.executeUpdate(sql);
+								
+								//Hacer limitacion
+								
+								conexion.close();
+							}
+							catch(SQLException e2) {
+								e2.printStackTrace();
+							}
+							
+							JOptionPane.showMessageDialog(null, "Se ha modificado la asignatura satisfactoriamente", "Información",JOptionPane.INFORMATION_MESSAGE);
+							dispose();
+						}else {
+							if (txtcodigo.getText().length() != 7)
+								JOptionPane.showMessageDialog(null,"Ha ingresado un codigo invalido","Error",JOptionPane.INFORMATION_MESSAGE);
+							else {
+								String[] valores = {txtcodigo.getText(), txtnombre.getText()};
+								agregarFilaAsignatura(valores, 2);
+								limpiarCampos();
+								JOptionPane.showMessageDialog(null,"Se ha ingresado una asignatura correctamente","Error",JOptionPane.INFORMATION_MESSAGE);
+							}
+						}	
 					}
 				});
 				btnagregar.setActionCommand("OK");
@@ -156,6 +190,60 @@ public class AgregarAsignatura extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		restablecerCampos(codAsignatura);
 	}
-
+	
+	private void agregarFilaAsignatura(String[] valoresTipoString, int cantCamposTipoString) {
+		try {
+			Connection conexion = ConexionDB.conectarDB();
+			
+			String sql = "INSERT Asignatura VALUES (";
+			
+			for(int i = 0; i < cantCamposTipoString; i++) {
+				sql += "'"+valoresTipoString[i]+"'";
+				if(i != cantCamposTipoString-1) {
+					sql += ',';
+				}
+			}
+			sql+=", "+(Integer)spncreditos.getValue()+", "+(Integer)spnteoricas.getValue()
+				+", "+(Integer)spnpracticas.getValue()+')';
+			Statement stm = conexion.createStatement();
+			int result = stm.executeUpdate(sql);
+			
+			//Hacer limitacion para que no se ingrese un usuario con el mismo ID
+			
+			conexion.close();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void limpiarCampos(){
+		txtcodigo.setText("");
+		txtnombre.setText("");
+		spncreditos.setValue(0);
+		spnpracticas.setValue(0);
+		spnteoricas.setValue(0);
+	}
+	
+	private void restablecerCampos(String codAsignatura) {
+		if(codAsignatura == null)
+			return;
+		try {
+			String[] pkNombres = {"CodAsignatura"};
+			String[] pkValores = {codAsignatura};
+			ResultSet rs = ConexionDB.buscarFilasTabla("Asignatura", pkNombres, pkValores, 1);
+			rs.next();
+			txtcodigo.setText(codAsignatura);
+			txtcodigo.setEnabled(false);
+			txtnombre.setText(rs.getString("Nombre"));
+			spncreditos.setValue(rs.getInt("Creditos"));
+			spnteoricas.setValue(rs.getInt("HorasTeoricas"));
+			spnpracticas.setValue(rs.getInt("HorasPracticas"));
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

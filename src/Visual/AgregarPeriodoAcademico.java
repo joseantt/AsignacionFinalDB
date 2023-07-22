@@ -8,6 +8,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import Database.ConexionDB;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,6 +24,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.BevelBorder;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
 
 public class AgregarPeriodoAcademico extends JDialog {
 
@@ -29,6 +33,14 @@ public class AgregarPeriodoAcademico extends JDialog {
 	private JTextField txtdescripcion;
 	private JButton btnagregar;
 	private JButton btncancelar;
+	private JSpinner spn_FechaInicio;
+	private JSpinner spn_FechaInicioClases;
+	private JSpinner spn_FechaFin;
+	private JSpinner spn_FechaFinClases;
+	private JSpinner spn_FechaLimitePago;
+	private JSpinner spn_FechaLimitePrematricula;
+	private JSpinner spn_FechaLimiteRetiro;
+	private JSpinner spn_FechaLimitePublicacion;
 	
 
 	/**
@@ -99,7 +111,7 @@ public class AgregarPeriodoAcademico extends JDialog {
 			contentPanel.add(lblFechaDeInicio);
 		}
 		
-		JSpinner spn_FechaInicio = new JSpinner();
+		spn_FechaInicio = new JSpinner();
 		spn_FechaInicio.setModel(new SpinnerDateModel(new Date(1689825600000L), null, null, Calendar.DAY_OF_YEAR));
 		spn_FechaInicio.setBounds(46, 148, 200, 22);
 		spn_FechaInicio.setEditor(new JSpinner.DateEditor(spn_FechaInicio,"yyyy-MM-dd"));
@@ -110,7 +122,7 @@ public class AgregarPeriodoAcademico extends JDialog {
 			contentPanel.add(lblFechaDeFin);
 		}
 		{
-			JSpinner spn_FechaFin = new JSpinner();
+			spn_FechaFin = new JSpinner();
 			spn_FechaFin.setModel(new SpinnerDateModel(new Date(1689825600000L), null, null, Calendar.DAY_OF_YEAR));
 			spn_FechaFin.setBounds(352, 148, 200, 22);
 			spn_FechaFin.setEditor(new JSpinner.DateEditor(spn_FechaFin,"yyyy-MM-dd"));
@@ -122,7 +134,7 @@ public class AgregarPeriodoAcademico extends JDialog {
 			contentPanel.add(lblFechaDeInicio_1);
 		}
 		{
-			JSpinner spn_FechaInicioClases = new JSpinner();
+			spn_FechaInicioClases = new JSpinner();
 			spn_FechaInicioClases.setModel(new SpinnerDateModel(new Date(1689825600000L), null, null, Calendar.DAY_OF_YEAR));
 			spn_FechaInicioClases.setBounds(46, 221, 200, 22);
 			spn_FechaInicioClases.setEditor(new JSpinner.DateEditor(spn_FechaInicioClases,"yyyy-MM-dd"));
@@ -134,7 +146,7 @@ public class AgregarPeriodoAcademico extends JDialog {
 			contentPanel.add(lblFechaFinDe);
 		}
 		{
-			JSpinner spn_FechaFinClases = new JSpinner();
+			spn_FechaFinClases = new JSpinner();
 			spn_FechaFinClases.setModel(new SpinnerDateModel(new Date(1689825600000L), null, null, Calendar.DAY_OF_YEAR));
 			spn_FechaFinClases.setBounds(352, 221, 200, 22);
 			spn_FechaFinClases.setEditor(new JSpinner.DateEditor(spn_FechaFinClases,"yyyy-MM-dd"));
@@ -151,14 +163,14 @@ public class AgregarPeriodoAcademico extends JDialog {
 			contentPanel.add(lblFechaLimitePago);
 		}
 		{
-			JSpinner spn_FechaLimitePago = new JSpinner();
+			spn_FechaLimitePago = new JSpinner();
 			spn_FechaLimitePago.setModel(new SpinnerDateModel(new Date(1689825600000L), null, null, Calendar.DAY_OF_YEAR));
 			spn_FechaLimitePago.setBounds(46, 288, 200, 22);
 			spn_FechaLimitePago.setEditor(new JSpinner.DateEditor(spn_FechaLimitePago,"yyyy-MM-dd"));
 			contentPanel.add(spn_FechaLimitePago);
 		}
 		{
-			JSpinner spn_FechaLimiteRetiro = new JSpinner();
+			spn_FechaLimiteRetiro = new JSpinner();
 			spn_FechaLimiteRetiro.setModel(new SpinnerDateModel(new Date(1689825600000L), null, null, Calendar.DAY_OF_YEAR));
 			spn_FechaLimiteRetiro.setBounds(46, 355, 200, 22);
 			spn_FechaLimiteRetiro.setEditor(new JSpinner.DateEditor(spn_FechaLimiteRetiro,"yyyy-MM-dd"));
@@ -170,7 +182,7 @@ public class AgregarPeriodoAcademico extends JDialog {
 			contentPanel.add(lblFechaLimitePrematrcula);
 		}
 		{
-			JSpinner spn_FechaLimitePrematricula = new JSpinner();
+			spn_FechaLimitePrematricula = new JSpinner();
 			spn_FechaLimitePrematricula.setModel(new SpinnerDateModel(new Date(1689825600000L), null, null, Calendar.DAY_OF_YEAR));
 			spn_FechaLimitePrematricula.setBounds(352, 288, 200, 22);
 			spn_FechaLimitePrematricula.setEditor(new JSpinner.DateEditor(spn_FechaLimitePrematricula,"yyyy-MM-dd"));
@@ -182,7 +194,7 @@ public class AgregarPeriodoAcademico extends JDialog {
 			contentPanel.add(lblFechaLimitePara);
 		}
 		{
-			JSpinner spn_FechaLimitePublicacion = new JSpinner();
+			spn_FechaLimitePublicacion = new JSpinner();
 			spn_FechaLimitePublicacion.setModel(new SpinnerDateModel(new Date(1689825600000L), null, null, Calendar.DAY_OF_YEAR));
 			spn_FechaLimitePublicacion.setBounds(352, 355, 200, 22);
 			spn_FechaLimitePublicacion.setEditor(new JSpinner.DateEditor(spn_FechaLimitePublicacion,"yyyy-MM-dd"));
@@ -198,10 +210,17 @@ public class AgregarPeriodoAcademico extends JDialog {
 				btnagregar.setEnabled(false);
 				btnagregar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (txtcodigo.getText().length() != 8) {
-							JOptionPane.showMessageDialog(null,"Ha ingresado un codigo invalido","Error",JOptionPane.INFORMATION_MESSAGE);
-						}else {
-							
+						if (txtcodigo.getText().length() != 9) {
+							JOptionPane.showMessageDialog(null,"Ha ingresado un codigo invalido","Error",JOptionPane.ERROR_MESSAGE);
+						}
+						else {
+						String[] valores = {txtcodigo.getText(), txtdescripcion.getText(), new SimpleDateFormat("yyyy-MM-dd").format((Date)spn_FechaInicio.getValue()),
+								new SimpleDateFormat("yyyy-MM-dd").format((Date)spn_FechaFin.getValue()), new SimpleDateFormat("yyyy-MM-dd").format((Date)spn_FechaInicioClases.getValue()), 
+								new SimpleDateFormat("yyyy-MM-dd").format((Date)spn_FechaFinClases.getValue()), new SimpleDateFormat("yyyy-MM-dd").format((Date)spn_FechaLimitePago.getValue()), 
+								new SimpleDateFormat("yyyy-MM-dd").format((Date)spn_FechaLimitePrematricula.getValue()), new SimpleDateFormat("yyyy-MM-dd").format((Date)spn_FechaLimiteRetiro.getValue()),
+								new SimpleDateFormat("yyyy-MM-dd").format((Date)spn_FechaLimitePublicacion.getValue())};
+						ConexionDB.agregarFilaTabla("PeriodoAcademico", valores, 10);
+						JOptionPane.showMessageDialog(null,"El periodo ha sido ingresado satisfactoriamente","Información",JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
 				});
