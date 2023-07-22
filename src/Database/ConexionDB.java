@@ -19,6 +19,7 @@ public class ConexionDB {
 		String user = "general";
 		String pwd = "54321";
 		
+		
 		try {
             Connection conexion = DriverManager.getConnection(url,user,pwd);
             return conexion;
