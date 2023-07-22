@@ -8,10 +8,14 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import Database.ConexionDB;
+
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class Inscripcion extends JDialog {
@@ -110,6 +114,15 @@ public class Inscripcion extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btninscribir = new JButton("Inscribir");
+				btninscribir.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						String[] valores = {txtmatricula.getText().toString(),txtcodperiodoacad.getText(),txtcodigoasignatura.getText(),txtnumerogrupo.getText()};
+						ConexionDB.agregarFilaTabla("Inscripcion", valores, 4);
+						JOptionPane.showMessageDialog(null, "Se ha inscrito satisfactoriamente", "Información",JOptionPane.INFORMATION_MESSAGE);
+						
+					}
+				});
 				btninscribir.setActionCommand("OK");
 				buttonPane.add(btninscribir);
 				getRootPane().setDefaultButton(btninscribir);

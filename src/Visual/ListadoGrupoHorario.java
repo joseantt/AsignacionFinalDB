@@ -20,6 +20,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ListadoGrupoHorario extends JDialog {
 
@@ -61,6 +63,15 @@ public class ListadoGrupoHorario extends JDialog {
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
 					tablagrupohorario = new JTable();
+					tablagrupohorario.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							int selectedrow = tablagrupohorario.getSelectedRow();
+							if (selectedrow > 0) {
+								btneliminar.setEnabled(true);
+							}
+						}
+					});
 					tablagrupohorario.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 					String[] columnas = {"Numero de grupo", "Codigo de asignatura", "Codigo periodo academico", "Fecha inicial", "Fecha final", "Dia"};
 					model = (DefaultTableModel) tablagrupohorario.getModel();
@@ -75,10 +86,16 @@ public class ListadoGrupoHorario extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnActualizar = new JButton("Actualizar");
+				btnActualizar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						loadListado(model);
+					}
+				});
 				buttonPane.add(btnActualizar);
 			}
 			{
 				btneliminar = new JButton("Eliminar");
+				btneliminar.setEnabled(false);
 				btneliminar.setActionCommand("OK");
 				buttonPane.add(btneliminar);
 				getRootPane().setDefaultButton(btneliminar);
@@ -94,6 +111,7 @@ public class ListadoGrupoHorario extends JDialog {
 				buttonPane.add(btncancelar);
 			}
 		}
+		loadListado(model);
 	}
 	
 	private void loadListado(DefaultTableModel model) {

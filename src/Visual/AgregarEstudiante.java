@@ -162,18 +162,20 @@ public class AgregarEstudiante extends JDialog {
 							String[] valoresPks = {txt_matricula.getText()};
 							ConexionDB.updateTabla("Estudiante", columnas, valores, 8, Pks, valoresPks, 1);						
 							JOptionPane.showMessageDialog(null, "Se ha modificado el estudiante satisfactoriamente", "Información",JOptionPane.INFORMATION_MESSAGE);
-							return;
+							dispose();
+						}else {	
+							
+							String[] valores = {txt_matricula.getText(), txt_primerNombre.getText(), txt_segundoNombre.getText(),
+									txt_primerApellido.getText(), txt_segundoApellido.getText(),
+									(String)cbx_Carrera.getSelectedItem(), (String)cbx_Pago.getSelectedItem(),
+									(String)cbx_Nacionalidad.getSelectedItem(), txt_Direccion.getText()};
+							
+							ConexionDB.agregarFilaTabla("Estudiante", valores, 9);
+							JOptionPane.showMessageDialog(null, "Se ha agregado el estudiante satisfactoriamente", "Información",JOptionPane.INFORMATION_MESSAGE);
+							limpiarCampos();
+						
 						}
-						
-						String[] valores = {txt_matricula.getText(), txt_primerNombre.getText(), txt_segundoNombre.getText(),
-								txt_primerApellido.getText(), txt_segundoApellido.getText(),
-								(String)cbx_Carrera.getSelectedItem(), (String)cbx_Pago.getSelectedItem(),
-								(String)cbx_Nacionalidad.getSelectedItem(), txt_Direccion.getText()};
-						
-						ConexionDB.agregarFilaTabla("Estudiante", valores, 9);
-						JOptionPane.showMessageDialog(null, "Se ha agregado el estudiante satisfactoriamente", "Información",JOptionPane.INFORMATION_MESSAGE);
-						limpiarCampos();
-					} 
+					}
 				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);

@@ -58,6 +58,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ListadoEstudiantes ListadoE = new ListadoEstudiantes();
 				ListadoE.setVisible(true);
+				ListadoE.setModal(true);
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);

@@ -18,6 +18,10 @@ import Database.ConexionDB;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ListadoInscripcion extends JDialog {
 
@@ -60,6 +64,15 @@ public class ListadoInscripcion extends JDialog {
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
 					listainscripciones = new JTable();
+					listainscripciones.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							int selectedrow = listainscripciones.getSelectedRow();
+							if (selectedrow > 0) {
+								btneliminar.setEnabled(true);
+							}
+						}
+					});
 					listainscripciones.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 					String[] columnas = {"Matricula", "Codigo de asignatura", "Codigo periodo academico", "Numero de grupo"};
 					model = (DefaultTableModel) listainscripciones.getModel();
@@ -74,10 +87,16 @@ public class ListadoInscripcion extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnActualizar = new JButton("Actualizar");
+				btnActualizar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						loadListado(model);
+					}
+				});
 				buttonPane.add(btnActualizar);
 			}
 			{
 				btneliminar = new JButton("Eliminar");
+				btneliminar.setEnabled(false);
 				btneliminar.setActionCommand("OK");
 				buttonPane.add(btneliminar);
 				getRootPane().setDefaultButton(btneliminar);
