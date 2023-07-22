@@ -32,6 +32,7 @@ public class ListadoEstudiantes extends JDialog {
 	private JButton btn_modificar;
 	private JButton btn_eliminar;
 	private String matricula = "";
+	private int indiceFilaSeleccionada;
 
 	/**
 	 * Launch the application.
@@ -94,7 +95,16 @@ public class ListadoEstudiantes extends JDialog {
 			{
 				btn_modificar = new JButton("Modificar");
 				btn_modificar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+					public void actionPerformed(ActionEvent e) {				
+						indiceFilaSeleccionada = TablaEstudiante.getSelectedRow();
+						if(indiceFilaSeleccionada != 1) {
+							AgregarEstudiante agregarEstudiante = new AgregarEstudiante(
+								(String)TablaEstudiante.getValueAt(indiceFilaSeleccionada, 0));
+							agregarEstudiante.setVisible(true);
+							agregarEstudiante.setModal(true);
+							indiceFilaSeleccionada = -1;
+						}
+						
 						btn_modificar.setEnabled(false);
 						btn_eliminar.setEnabled(false);
 						TablaEstudiante.clearSelection();
@@ -113,11 +123,12 @@ public class ListadoEstudiantes extends JDialog {
 						        new Object[] {"Si", "No"}, null);
 						
 						if(selection == 0) {
-							int indiceFilaSeleccionada = TablaEstudiante.getSelectedRow();
-							if(indiceFilaSeleccionada != 1) {
+							indiceFilaSeleccionada = TablaEstudiante.getSelectedRow();
+							if(indiceFilaSeleccionada != -1) {
 								matricula = (String) TablaEstudiante.getValueAt(indiceFilaSeleccionada, 0);
 								eliminarEstudiante(matricula);
 								actualizarFilasEstudiante((DefaultTableModel)TablaEstudiante.getModel());
+								indiceFilaSeleccionada = -1;
 							}
 							
 							TablaEstudiante.clearSelection();
@@ -186,4 +197,6 @@ public class ListadoEstudiantes extends JDialog {
 			e.printStackTrace();
 		}
 	}
+	
+	
 }

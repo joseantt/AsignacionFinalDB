@@ -54,14 +54,19 @@ public class MainFrame extends JFrame {
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Visualizar listado");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListadoEstudiantes ListadoE = new ListadoEstudiantes();
+				ListadoE.setVisible(true);
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Agregar");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				AgregarEstudiante agregarEstudiante = new AgregarEstudiante();
+				AgregarEstudiante agregarEstudiante = new AgregarEstudiante(null);
 				agregarEstudiante.setVisible(true);
-				agregarEstudiante.setModal(true);
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_2);
