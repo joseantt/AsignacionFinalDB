@@ -91,6 +91,7 @@ public class ListadoInscripcion extends JDialog {
 				btnActualizar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						loadListado(model);
+						btneliminar.setEnabled(false);
 					}
 				});
 				buttonPane.add(btnActualizar);

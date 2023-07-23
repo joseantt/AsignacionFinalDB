@@ -33,6 +33,8 @@ public class ListadoEstudiantes extends JDialog {
 	private JButton btn_eliminar;
 	private String matricula = "";
 	private int indiceFilaSeleccionada;
+	private DefaultTableModel model;
+	private JButton btnactualizar;
 
 	/**
 	 * Launch the application.
@@ -68,7 +70,7 @@ public class ListadoEstudiantes extends JDialog {
 				JScrollPane scrollPane = new JScrollPane();
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
-					//Se crea un scrollPane, se añade la tabla al scroll, se edita el modelo y se presenta la tabla
+					//Se crea un scrollPane, se aï¿½ade la tabla al scroll, se edita el modelo y se presenta la tabla
 					TablaEstudiante = new JTable();
 					TablaEstudiante.addMouseListener(new MouseAdapter() {
 						@Override
@@ -78,8 +80,8 @@ public class ListadoEstudiantes extends JDialog {
 						}
 					});
 					TablaEstudiante.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-					String[] columnas = {"Matrícula", "Nombre1", "Nombre2", "Apellido1", "Apellido2", "Carrera", "CategoriaPago", "Nacionalidad", "Dirección"};
-					DefaultTableModel model = (DefaultTableModel) TablaEstudiante.getModel();
+					String[] columnas = {"Matrï¿½cula", "Nombre1", "Nombre2", "Apellido1", "Apellido2", "Carrera", "CategoriaPago", "Nacionalidad", "Direcciï¿½n"};
+					model = (DefaultTableModel) TablaEstudiante.getModel();
 					model.setColumnIdentifiers(columnas);
 					actualizarFilasEstudiante(model);
 					scrollPane.setViewportView(TablaEstudiante);
@@ -110,6 +112,17 @@ public class ListadoEstudiantes extends JDialog {
 						TablaEstudiante.clearSelection();
 					}
 				});
+				{
+					btnactualizar = new JButton("Actualizar");
+					btnactualizar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							actualizarFilasEstudiante(model);
+							btn_eliminar.setEnabled(false);
+							btn_modificar.setEnabled(false);
+						}
+					});
+					buttonPane.add(btnactualizar);
+				}
 				btn_modificar.setEnabled(false);
 				buttonPane.add(btn_modificar);
 			}
@@ -118,8 +131,8 @@ public class ListadoEstudiantes extends JDialog {
 				btn_eliminar.setEnabled(false);
 				btn_eliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						int selection = JOptionPane.showOptionDialog(null, "¿Está seguro de que desea continuar?",
-						        "Confirmar eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+						int selection = JOptionPane.showOptionDialog(null, "ï¿½Estï¿½ seguro de que desea continuar?",
+						        "Confirmar eliminaciï¿½n", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 						        new Object[] {"Si", "No"}, null);
 						
 						if(selection == 0) {

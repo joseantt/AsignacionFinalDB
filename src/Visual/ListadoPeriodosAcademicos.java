@@ -32,6 +32,8 @@ public class ListadoPeriodosAcademicos extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTable tablaPeriodos;
 	private JButton btneliminar;
+	private JButton btnactualizar;
+	private DefaultTableModel model;
 
 	/**
 	 * Launch the application.
@@ -78,7 +80,7 @@ public class ListadoPeriodosAcademicos extends JDialog {
 					tablaPeriodos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 					String[] columnas = {"CodPeriodoAcad", "Descripcion", "FechaInicio", "FehcaFin", "FechaInicioClases",
 							"FechaFinClases", "FechaLimitePago", "FechaLimitePrematricula", "FechaLimiteRetiro", "FechaLimitePublicacion"};
-					DefaultTableModel model = (DefaultTableModel) tablaPeriodos.getModel();
+					model = (DefaultTableModel) tablaPeriodos.getModel();
 					model.setColumnIdentifiers(columnas);
 					actualizarFilasPeriodoAcad(model);
 					scrollPane.setViewportView(tablaPeriodos);
@@ -112,6 +114,16 @@ public class ListadoPeriodosAcademicos extends JDialog {
 							}
 						}
 					});
+					{
+						btnactualizar = new JButton("Actualizar");
+						btnactualizar.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								actualizarFilasPeriodoAcad(model);
+								btneliminar.setEnabled(false);
+							}
+						});
+						buttonPane.add(btnactualizar);
+					}
 					buttonPane.add(btneliminar);
 				}
 				cancelButton.setActionCommand("Cancel");

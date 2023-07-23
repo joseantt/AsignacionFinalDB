@@ -14,6 +14,9 @@ import logico.SelectionListener;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -130,7 +133,7 @@ public class Inscripcion extends JDialog implements SelectionListener{
 				btnnumgrupo = new JButton("Seleccionar");
 				btnnumgrupo.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						ListadoGrupo listadoGrupo = new ListadoGrupo(null);
+						ListadoGrupo listadoGrupo = new ListadoGrupo(Inscripcion.this);
 						listadoGrupo.setVisible(true);
 						listadoGrupo.setModal(true);
 					}
@@ -161,8 +164,8 @@ public class Inscripcion extends JDialog implements SelectionListener{
 				btninscribir.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
-						String[] valores = {txtmatricula.getText().toString(),txtcodperiodoacad.getText(),txtcodigoasignatura.getText(),txtnumerogrupo.getText()};
-						ConexionDB.agregarFilaTabla("Inscripcion", valores, 4);
+						String[] valores = {txtcodperiodoacad.getText(),txtmatricula.getText(),txtcodigoasignatura.getText(),txtnumerogrupo.getText()};
+						agregarInscripcion(valores);
 						JOptionPane.showMessageDialog(null, "Se ha inscrito satisfactoriamente", "Información",JOptionPane.INFORMATION_MESSAGE);
 						
 					}
@@ -184,6 +187,26 @@ public class Inscripcion extends JDialog implements SelectionListener{
 		}
 	}
 	
+
+	private void agregarInscripcion(String[] valoresTipoString) {
+		try {
+			Connection conexion = ConexionDB.conectarDB();
+			
+			String sql = "INSERT Inscripcion VALUES ('"+valoresTipoString[0]+"','"+valoresTipoString[1]+"','"+valoresTipoString[2]+"','"
+					+valoresTipoString[3]+"')";
+			
+			Statement stm = conexion.createStatement();
+			stm.executeUpdate(sql);
+			
+			
+			conexion.close();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public void setValorSeleccionado(Object valor) {
 		txtnumerogrupo.setText(valor.toString());
 	}
@@ -195,6 +218,8 @@ public class Inscripcion extends JDialog implements SelectionListener{
 			txtcodperiodoacad.setText(valor.toString());
 		}else if (objetivo.equals("codigo asignatura")) {
 			txtcodigoasignatura.setText(valor.toString());
+		}else if (objetivo.equals("numero grupo")) {
+			txtnumerogrupo.setText(valor.toString());
 		}
 	}
 }

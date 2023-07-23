@@ -37,6 +37,8 @@ public class ListadoAsignaturas extends JDialog {
 	private JButton btnEliminar;
 	private JButton btnModificar;
 	private int indiceFilaSeleccionada = -1;
+	private JButton btnactualizar;
+	private DefaultTableModel model;
 
 	/**
 	 * Launch the application.
@@ -77,7 +79,7 @@ public class ListadoAsignaturas extends JDialog {
 				});
 				tablaAsignaturas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				String[] columnas = {"Codigo Asig.", "Nombre", "Creditos", "Horas Teoricas", "Horas Practicas"};
-				DefaultTableModel model = (DefaultTableModel) tablaAsignaturas.getModel();
+				model = (DefaultTableModel) tablaAsignaturas.getModel();
 				model.setColumnIdentifiers(columnas);
 				actualizarFilasAsignaturas(model);
 				scrollPane.setViewportView(tablaAsignaturas);
@@ -120,6 +122,17 @@ public class ListadoAsignaturas extends JDialog {
 						}
 					}
 				});
+				{
+					btnactualizar = new JButton("Actualizar");
+					btnactualizar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							actualizarFilasAsignaturas(model);
+							btnEliminar.setEnabled(false);
+							btnModificar.setEnabled(false);
+						}
+					});
+					buttonPane.add(btnactualizar);
+				}
 				btnEliminar.setEnabled(false);
 				buttonPane.add(btnEliminar);
 			}

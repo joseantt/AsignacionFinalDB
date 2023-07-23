@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Database.ConexionDB;
 import Visual.Inscripcion.selectionlistener;
+import logico.SelectionListener;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -51,7 +52,7 @@ public class ListadoGrupo extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ListadoGrupo(selectionlistener listener) {
+	public ListadoGrupo(SelectionListener listener) {
 		setBounds(100, 100, 800, 462);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -95,6 +96,7 @@ public class ListadoGrupo extends JDialog {
 				btnActualizar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						loadListado(model);
+						btneliminar.setEnabled(false);
 					}
 				});
 				buttonPane.add(btnActualizar);
@@ -106,7 +108,7 @@ public class ListadoGrupo extends JDialog {
 						int selectedRow = listagrupo.getSelectedRow();
 				        if (selectedRow >= 0 && listener != null) {
 				            Object value = model.getValueAt(selectedRow, 0);
-				            listener.setValorSeleccionado(value);
+				            listener.setValorSeleccionado(value,"numero grupo");
 				            dispose();
 				        }else {
 							
@@ -132,7 +134,6 @@ public class ListadoGrupo extends JDialog {
 			}
 		}
 		if (listener != null) {
-			this.listener = listener;
 			btneliminar.setText("Seleccionar");
 		}
 		loadListado(model);

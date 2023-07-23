@@ -32,6 +32,7 @@ public class ListadoGrupoHorario extends JDialog {
 	private JButton btncancelar;
 	private DefaultTableModel model;
 	private selectionlistener listener;
+	private JButton btnActualizar;
 	
 	/**
 	 * Launch the application.
@@ -87,10 +88,11 @@ public class ListadoGrupoHorario extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton btnActualizar = new JButton("Actualizar");
+				btnActualizar = new JButton("Actualizar");
 				btnActualizar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						loadListado(model);
+						btneliminar.setEnabled(false);
 					}
 				});
 				buttonPane.add(btnActualizar);
