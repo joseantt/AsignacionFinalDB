@@ -79,6 +79,13 @@ public class MainFrame extends JFrame {
 		menuBar.add(mnNewMenu_1);
 		
 		JMenuItem mntmNewMenuItem_14 = new JMenuItem("Visualizar listado");
+		mntmNewMenuItem_14.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListadoAsignaturas asignaturas = new ListadoAsignaturas(null);
+				asignaturas.setVisible(true);
+				asignaturas.setModal(true);
+			}
+		});
 		mnNewMenu_1.add(mntmNewMenuItem_14);
 		
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Agregar");
@@ -95,15 +102,36 @@ public class MainFrame extends JFrame {
 		menuBar.add(mnNewMenu_2);
 		
 		JMenuItem mntmNewMenuItem_15 = new JMenuItem("Visualizar listado");
+		mntmNewMenuItem_15.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListadoGrupo listadoGrupo = new ListadoGrupo(null);
+				listadoGrupo.setVisible(true);
+				listadoGrupo.setModal(true);
+			}
+		});
 		mnNewMenu_2.add(mntmNewMenuItem_15);
 		
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Agregar");
+		mntmNewMenuItem_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Grupo grupo = new Grupo();
+				grupo.setVisible(true);
+				grupo.setModal(true);
+			}
+		});
 		mnNewMenu_2.add(mntmNewMenuItem_8);
 		
 		JMenu mnNewMenu_3 = new JMenu("Periodo Acad\u00E9mico");
 		menuBar.add(mnNewMenu_3);
 		
 		JMenuItem mntmVi = new JMenuItem("Visualizar listado");
+		mntmVi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListadoPeriodosAcademicos periodosAcademicos = new ListadoPeriodosAcademicos(null);
+				periodosAcademicos.setVisible(true);
+				periodosAcademicos.setModal(true);
+			}
+		});
 		mnNewMenu_3.add(mntmVi);
 		
 		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Agregar");

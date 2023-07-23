@@ -34,6 +34,8 @@ public class Grupo extends JDialog implements SelectionListener {
 	private JTextField txtcodasignatura;
 	private JButton btncodperiodo;
 	private JSpinner spncupo;
+	private JButton btncodasignatura;
+	private JButton btncrear;
 
 	/**
 	 * Launch the application.
@@ -122,13 +124,15 @@ public class Grupo extends JDialog implements SelectionListener {
 					public void actionPerformed(ActionEvent e) {
 						ListadoPeriodosAcademicos periodosAcademicos = new ListadoPeriodosAcademicos(Grupo.this);
 						periodosAcademicos.setVisible(true);
+						periodosAcademicos.setModal(true);
+						
 					}
 				});
 				btncodperiodo.setBounds(403, 52, 89, 23);
 				panel.add(btncodperiodo);
 			}
 			{
-				JButton btncodasignatura = new JButton("Seleccionar");
+				btncodasignatura = new JButton("Seleccionar");
 				btncodasignatura.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						ListadoAsignaturas asignaturas = new ListadoAsignaturas(Grupo.this);
@@ -146,18 +150,19 @@ public class Grupo extends JDialog implements SelectionListener {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton btncrear = new JButton("Crear");
+				btncrear = new JButton("Crear");
 				btncrear.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (txtnumerogrupo.getText().length() != 3 || txtcodasignatura.getText().isEmpty() || 
-								txtcodperiodoacad.getText().isEmpty() )
-							JOptionPane.showMessageDialog(null,"Ha ingresado un codigo invalido","Error",JOptionPane.INFORMATION_MESSAGE);
-						else {
+						if (txtnumerogrupo.getText().length() != 3 ) {
+							JOptionPane.showMessageDialog(null,"Numero de grupo erroneamente insertado","Error",JOptionPane.ERROR_MESSAGE);
+						}else if (txtcodasignatura.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(null,"Codigo de asignatura no encontrado","Error",JOptionPane.ERROR_MESSAGE);
+						}else if (txtcodperiodoacad.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(null,"Periodo academico no encontrado","Error",JOptionPane.ERROR_MESSAGE);
+						}else {
 							String[] valores = {txtcodperiodoacad.getText(), txtcodasignatura.getText(), 
 									txtnumerogrupo.getText(), txthorario.getText()};
 							agregarGrupo(valores);
-							
-							JOptionPane.showMessageDialog(null,"El grupo ha sido insertado correctamente","Error",JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
 				});
@@ -186,14 +191,13 @@ public class Grupo extends JDialog implements SelectionListener {
 					+spncupo.getValue()+"','"+valoresTipoString[3]+"')";
 			
 			Statement stm = conexion.createStatement();
-			int result = stm.executeUpdate(sql);
-			
-			//Hacer limitacion para que no se ingrese un usuario con el mismo ID
+			stm.executeUpdate(sql);
 			
 			conexion.close();
+			JOptionPane.showMessageDialog(null,"El grupo ha sido insertado correctamente","Informacion",JOptionPane.INFORMATION_MESSAGE);
 		}
 		catch(SQLException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Verifique que los campos esten correctamente insertados","Error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -106,12 +107,22 @@ public class ListadoGrupo extends JDialog {
 				btneliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						int selectedRow = listagrupo.getSelectedRow();
-				        if (selectedRow >= 0 && listener != null) {
+				        if (listener != null) {
 				            Object value = model.getValueAt(selectedRow, 0);
 				            listener.setValorSeleccionado(value,"numero grupo");
 				            dispose();
 				        }else {
-							
+							int option = JOptionPane.showOptionDialog(null, "�Est� seguro de que desea continuar?",
+							        "Confirmar eliminaci�n", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+							        new Object[] {"Si", "No"}, null);
+							if (option == 0) {
+								eliminarGrupo(listagrupo.getValueAt(selectedRow, 0).toString(),
+										listagrupo.getValueAt(selectedRow, 2).toString(),
+										listagrupo.getValueAt(selectedRow, 1).toString());
+								btneliminar.setEnabled(false);
+								listagrupo.clearSelection();
+								loadListado(model);
+							}
 				        	
 						}
 					}
@@ -139,9 +150,25 @@ public class ListadoGrupo extends JDialog {
 		loadListado(model);
 	}
 	
-	private void eliminarGrupo() {
+
+	private void eliminarGrupo(String numgrupo, String periodoacad, String asignatura) {
+		Connection conexion = ConexionDB.conectarDB();
 		
+		try {
+			String sql = "DELETE FROM Grupo WHERE NumGrupo = '" + numgrupo + "' AND CodAsignatura = '" + asignatura
+					+ "' AND CodPeriodoAcad = '" + periodoacad + "'";
+			Statement stm = conexion.createStatement();
+			stm.executeUpdate(sql);
+			
+			conexion.close();
+			JOptionPane.showMessageDialog(null,"Eliminacion exitosa","Informacion",JOptionPane.INFORMATION_MESSAGE);
+		}
+		catch(SQLException e) {
+			JOptionPane.showMessageDialog(null,"No fue posible eliminar el grupo","Error",JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
 	}
+	
 
 	private void loadListado(DefaultTableModel model) {
 		
