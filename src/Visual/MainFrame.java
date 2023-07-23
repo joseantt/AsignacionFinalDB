@@ -73,6 +73,13 @@ public class MainFrame extends JFrame {
 		mnNewMenu.add(mntmNewMenuItem_2);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Horario");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BuscarEstudiante buscarEstudiante = new BuscarEstudiante();
+				buscarEstudiante.setVisible(true);
+				buscarEstudiante.setModal(true);
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem);
 		
 		JMenu mnNewMenu_1 = new JMenu("Asignatura");
@@ -114,7 +121,7 @@ public class MainFrame extends JFrame {
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Agregar");
 		mntmNewMenuItem_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Grupo grupo = new Grupo();
+				Grupo grupo = new Grupo(null,null,null);
 				grupo.setVisible(true);
 				grupo.setModal(true);
 			}
