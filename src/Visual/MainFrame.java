@@ -75,12 +75,24 @@ public class MainFrame extends JFrame {
 		JMenuItem mntmNewMenuItem = new JMenuItem("Horario");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BuscarEstudiante buscarEstudiante = new BuscarEstudiante();
+				BuscarEstudiante buscarEstudiante = new BuscarEstudiante(null);
 				buscarEstudiante.setVisible(true);
 				buscarEstudiante.setModal(true);
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Grupos Inscritos");
+		mntmNewMenuItem_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BuscarEstudiante buscarEstudiante = new BuscarEstudiante("Inscripciones");
+				buscarEstudiante.setLocationRelativeTo(null);
+				buscarEstudiante.setVisible(true);
+				buscarEstudiante.setModal(true);
+				
+			}
+		});
+		mnNewMenu.add(mntmNewMenuItem_3);
 		
 		JMenu mnNewMenu_1 = new JMenu("Asignatura");
 		menuBar.add(mnNewMenu_1);
