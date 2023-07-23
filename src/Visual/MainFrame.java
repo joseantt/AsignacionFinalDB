@@ -53,17 +53,17 @@ public class MainFrame extends JFrame {
 		JMenu mnNewMenu = new JMenu("Estudiante");
 		menuBar.add(mnNewMenu);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Visualizar listado");
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Listado de estudiantes");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListadoEstudiantes ListadoE = new ListadoEstudiantes();
 				ListadoE.setVisible(true);
-				ListadoE.setModal(true);
+				ListadoE.setLocationRelativeTo(null);
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Agregar");
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Agregar estudiante");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				AgregarEstudiante agregarEstudiante = new AgregarEstudiante(null);
@@ -72,7 +72,7 @@ public class MainFrame extends JFrame {
 		});
 		mnNewMenu.add(mntmNewMenuItem_2);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Horario");
+		JMenuItem mntmNewMenuItem = new JMenuItem("Horario de estudiante");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BuscarEstudiante buscarEstudiante = new BuscarEstudiante(null);
@@ -82,7 +82,7 @@ public class MainFrame extends JFrame {
 		});
 		mnNewMenu.add(mntmNewMenuItem);
 		
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Grupos Inscritos");
+		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Grupos Inscritos por estudiante");
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BuscarEstudiante buscarEstudiante = new BuscarEstudiante("Inscripciones");
@@ -94,10 +94,31 @@ public class MainFrame extends JFrame {
 		});
 		mnNewMenu.add(mntmNewMenuItem_3);
 		
+		JMenu mnNewMenu_4 = new JMenu("Inscripci\u00F3n");
+		menuBar.add(mnNewMenu_4);
+		
+		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Listado inscripciones");
+		mntmNewMenuItem_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListadoInscripcion ListInsc = new ListadoInscripcion();
+				ListInsc.setVisible(true);
+			}
+		});
+		mnNewMenu_4.add(mntmNewMenuItem_9);
+		
+		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Inscribir estudiante");
+		mntmNewMenuItem_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Inscripcion insc = new Inscripcion();
+				insc.setVisible(true);
+			}
+		});
+		mnNewMenu_4.add(mntmNewMenuItem_7);
+		
 		JMenu mnNewMenu_1 = new JMenu("Asignatura");
 		menuBar.add(mnNewMenu_1);
 		
-		JMenuItem mntmNewMenuItem_14 = new JMenuItem("Visualizar listado");
+		JMenuItem mntmNewMenuItem_14 = new JMenuItem("Listado de asignaturas");
 		mntmNewMenuItem_14.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListadoAsignaturas asignaturas = new ListadoAsignaturas(null);
@@ -107,7 +128,7 @@ public class MainFrame extends JFrame {
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_14);
 		
-		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Agregar");
+		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Agregar asignatura");
 		mntmNewMenuItem_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AgregarAsignatura agregarAsignatura = new AgregarAsignatura(null);
@@ -120,7 +141,7 @@ public class MainFrame extends JFrame {
 		JMenu mnNewMenu_2 = new JMenu("Grupo");
 		menuBar.add(mnNewMenu_2);
 		
-		JMenuItem mntmNewMenuItem_15 = new JMenuItem("Visualizar listado");
+		JMenuItem mntmNewMenuItem_15 = new JMenuItem("Listado de grupos");
 		mntmNewMenuItem_15.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListadoGrupo listadoGrupo = new ListadoGrupo(null);
@@ -130,7 +151,7 @@ public class MainFrame extends JFrame {
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_15);
 		
-		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Agregar");
+		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Agregar grupo");
 		mntmNewMenuItem_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Grupo grupo = new Grupo(null,null,null);
@@ -140,10 +161,28 @@ public class MainFrame extends JFrame {
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_8);
 		
+		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Listado de horarios");
+		mntmNewMenuItem_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListadoGrupoHorario listGrupoHorario = new ListadoGrupoHorario(null);
+				listGrupoHorario.setVisible(true);
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_6);
+		
+		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Agregar horario a grupo");
+		mntmNewMenuItem_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GrupoHorario gH = new GrupoHorario(null, null, null);
+				gH.setVisible(true);
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_4);
+		
 		JMenu mnNewMenu_3 = new JMenu("Periodo Acad\u00E9mico");
 		menuBar.add(mnNewMenu_3);
 		
-		JMenuItem mntmVi = new JMenuItem("Visualizar listado");
+		JMenuItem mntmVi = new JMenuItem("Listado periodo acad\u00E9mico");
 		mntmVi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListadoPeriodosAcademicos periodosAcademicos = new ListadoPeriodosAcademicos(null);
@@ -153,7 +192,7 @@ public class MainFrame extends JFrame {
 		});
 		mnNewMenu_3.add(mntmVi);
 		
-		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Agregar");
+		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Agregar periodo acad\u00E9mico");
 		mntmNewMenuItem_11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AgregarPeriodoAcademico agregarPeriodoAcademico = new AgregarPeriodoAcademico();
