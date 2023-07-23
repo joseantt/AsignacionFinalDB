@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JOptionPane;
+
 public class ConexionDB {
 	
 	public static Connection conectarDB() {
@@ -36,14 +38,15 @@ public class ConexionDB {
 			
 			String sql = queryInsert(nombreTabla, valores, cantCampos);
 			Statement stm = conexion.createStatement();
-			int result = stm.executeUpdate(sql);
+			stm.executeUpdate(sql);
 			
-			//Hacer limitacion para que no se ingrese un usuario con el mismo ID
 			
 			conexion.close();
+			JOptionPane.showMessageDialog(null, "Creacion exitosa", "Información",JOptionPane.INFORMATION_MESSAGE);
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Verifique los campos", "Error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -93,14 +96,15 @@ public class ConexionDB {
 			
 			String sql = queryUpdate(nombreTabla, columnas, valores, cantColumns, Pks, valoresPks, cantPk);
 			Statement stm = conexion.createStatement();
-			int result = stm.executeUpdate(sql);
+			stm.executeUpdate(sql);
 			
-			//Hacer limitacion para ete diparate
 			
 			conexion.close();
+			JOptionPane.showMessageDialog(null, "Modificacion exitosa", "Información",JOptionPane.INFORMATION_MESSAGE);
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Verifique los campos", "Error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

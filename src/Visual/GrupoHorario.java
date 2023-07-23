@@ -188,8 +188,7 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 							Timestamp ini = new Timestamp (((Date)spnfechainicial.getValue()).getTime());
 							Timestamp fin = new Timestamp (((Date)spnfechafinal.getValue()).getTime());
 							updateGrupoHorario(codPeriodoAcad, codAsignatura, numGrupo, (Integer)spndia.getValue(), ini, fin);
-							JOptionPane.showMessageDialog(null,"El horario del grupo ha sido modificado correctamente","Informaci�n",JOptionPane.INFORMATION_MESSAGE);
-
+		
 						}else {
 							if (txtnumerogrupo.getText().length() != 3) {
 								JOptionPane.showMessageDialog(null,"El numero de grupo debe ser de 3 elementos.","Error",JOptionPane.ERROR_MESSAGE);
@@ -197,8 +196,7 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 								
 								String[] valoreStrings = {txtcodperiodoacad.getText(),txtcodasignatura.getText(),txtnumerogrupo.getText()};
 								agregarGrupoHorario(valoreStrings);
-								JOptionPane.showMessageDialog(null,"El horario del grupo ha sido insertado correctamente","Informaci�n",JOptionPane.INFORMATION_MESSAGE);
-								clean();
+		
 							}
 						}
 					}
@@ -258,9 +256,12 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 			stm.executeUpdate(sql);
 			
 			conexion.close();
+			JOptionPane.showMessageDialog(null,"El horario del grupo ha sido insertado correctamente","Informaci�n",JOptionPane.INFORMATION_MESSAGE);
+			clean();
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Verifique que los campos esten correctamente insertados","Error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -312,10 +313,12 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 			
 			stm.close();
 			conexion.close();
+			JOptionPane.showMessageDialog(null,"El horario del grupo ha sido modificado correctamente","Informaci�n",JOptionPane.INFORMATION_MESSAGE);
+			dispose();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-		
+			JOptionPane.showMessageDialog(null,"Verifique que los campos esten correctamente insertados","Error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

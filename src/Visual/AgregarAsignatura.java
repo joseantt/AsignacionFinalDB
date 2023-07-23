@@ -151,17 +151,17 @@ public class AgregarAsignatura extends JDialog {
 								
 							
 								Statement stm = conexion.createStatement();
-								int result = stm.executeUpdate(sql);
+								stm.executeUpdate(sql);
 								
-								//Hacer limitacion
-								
+																
 								conexion.close();
+								JOptionPane.showMessageDialog(null, "Se ha modificado la asignatura satisfactoriamente", "Informaci�n",JOptionPane.INFORMATION_MESSAGE);
 							}
 							catch(SQLException e2) {
+								JOptionPane.showMessageDialog(null,"Verifique que los campos esten correctamente insertados","Error",JOptionPane.ERROR_MESSAGE);
 								e2.printStackTrace();
 							}
 							
-							JOptionPane.showMessageDialog(null, "Se ha modificado la asignatura satisfactoriamente", "Informaci�n",JOptionPane.INFORMATION_MESSAGE);
 							dispose();
 						}else {
 							if (txtcodigo.getText().length() != 7)

@@ -163,12 +163,16 @@ public class Inscripcion extends JDialog implements SelectionListener{
 				btninscribir = new JButton("Inscribir");
 				btninscribir.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
-						String[] valores = {txtcodperiodoacad.getText(),txtmatricula.getText(),txtcodigoasignatura.getText(),txtnumerogrupo.getText()};
-						agregarInscripcion(valores);
-						JOptionPane.showMessageDialog(null, "Se ha inscrito satisfactoriamente", "Información",JOptionPane.INFORMATION_MESSAGE);
-						clean();
-					}
+						if (txtcodigoasignatura.getText().isEmpty() || txtcodperiodoacad.getText().isEmpty() ||
+								txtmatricula.getText().isEmpty() || txtnumerogrupo.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(null,"Verifique que los campos esten correctamente insertados","Error",JOptionPane.ERROR_MESSAGE);
+						}else {
+							
+							String[] valores = {txtcodperiodoacad.getText(),txtmatricula.getText(),txtcodigoasignatura.getText(),txtnumerogrupo.getText()};
+							agregarInscripcion(valores);
+							clean();
+						}
+						}
 				});
 				btninscribir.setActionCommand("OK");
 				buttonPane.add(btninscribir);
@@ -206,8 +210,10 @@ public class Inscripcion extends JDialog implements SelectionListener{
 			
 			
 			conexion.close();
+			JOptionPane.showMessageDialog(null, "Se ha inscrito satisfactoriamente", "Información",JOptionPane.INFORMATION_MESSAGE);
 		}
 		catch(SQLException e) {
+			JOptionPane.showMessageDialog(null,"Verifique que los campos esten correctamente insertados","Error",JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 	}

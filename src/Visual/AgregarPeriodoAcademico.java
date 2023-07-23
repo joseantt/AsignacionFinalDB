@@ -220,7 +220,6 @@ public class AgregarPeriodoAcademico extends JDialog {
 								new SimpleDateFormat("yyyy-MM-dd").format((Date)spn_FechaLimitePrematricula.getValue()), new SimpleDateFormat("yyyy-MM-dd").format((Date)spn_FechaLimiteRetiro.getValue()),
 								new SimpleDateFormat("yyyy-MM-dd").format((Date)spn_FechaLimitePublicacion.getValue())};
 							ConexionDB.agregarFilaTabla("PeriodoAcademico", valores, 10);
-							JOptionPane.showMessageDialog(null,"El periodo ha sido ingresado satisfactoriamente","Informaci�n",JOptionPane.INFORMATION_MESSAGE);
 							clean();
 						}
 					}

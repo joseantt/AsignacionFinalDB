@@ -38,15 +38,15 @@ public class AgregarEstudiante extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		try {
-			AgregarEstudiante dialog = new AgregarEstudiante();
+			AgregarEstudiante dialog = new AgregarEstudiante(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}*/
+	}
 
 	/**
 	 * Create the dialog.
@@ -161,19 +161,22 @@ public class AgregarEstudiante extends JDialog {
 							String[] Pks = {"Matricula"};
 							String[] valoresPks = {txt_matricula.getText()};
 							ConexionDB.updateTabla("Estudiante", columnas, valores, 8, Pks, valoresPks, 1);						
-							JOptionPane.showMessageDialog(null, "Se ha modificado el estudiante satisfactoriamente", "Información",JOptionPane.INFORMATION_MESSAGE);
 							dispose();
 						}else {	
 							
-							String[] valores = {txt_matricula.getText(), txt_primerNombre.getText(), txt_segundoNombre.getText(),
-									txt_primerApellido.getText(), txt_segundoApellido.getText(),
-									(String)cbx_Carrera.getSelectedItem(), (String)cbx_Pago.getSelectedItem(),
-									(String)cbx_Nacionalidad.getSelectedItem(), txt_Direccion.getText()};
-							
-							ConexionDB.agregarFilaTabla("Estudiante", valores, 9);
-							JOptionPane.showMessageDialog(null, "Se ha agregado el estudiante satisfactoriamente", "Información",JOptionPane.INFORMATION_MESSAGE);
-							limpiarCampos();
-						
+							if (txt_matricula.getText().length() != 8) {
+								JOptionPane.showMessageDialog(null,"Ha ingresado una matricula invalida","Error",JOptionPane.ERROR_MESSAGE);
+							}else {
+								
+								String[] valores = {txt_matricula.getText(), txt_primerNombre.getText(), txt_segundoNombre.getText(),
+										txt_primerApellido.getText(), txt_segundoApellido.getText(),
+										(String)cbx_Carrera.getSelectedItem(), (String)cbx_Pago.getSelectedItem(),
+										(String)cbx_Nacionalidad.getSelectedItem(), txt_Direccion.getText()};
+								
+								ConexionDB.agregarFilaTabla("Estudiante", valores, 9);
+								limpiarCampos();
+								
+							}
 						}
 					}
 				});

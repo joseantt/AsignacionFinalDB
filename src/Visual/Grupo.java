@@ -167,7 +167,7 @@ public class Grupo extends JDialog implements SelectionListener {
 								String[] valores = {txtcodperiodoacad.getText(), txtcodasignatura.getText(), 
 										txtnumerogrupo.getText(), txthorario.getText()};
 								agregarGrupo(valores);
-								clean();
+								
 							}
 						}else {
 							updateGrupo((int) spncupo.getValue(), txthorario.getText(), numgrupo, codperiodo, codasignatura);
@@ -241,6 +241,7 @@ public class Grupo extends JDialog implements SelectionListener {
 			
 			conexion.close();
 			JOptionPane.showMessageDialog(null,"El grupo ha sido insertado correctamente","Informacion",JOptionPane.INFORMATION_MESSAGE);
+			clean();
 		}
 		catch(SQLException e) {
 			JOptionPane.showMessageDialog(null,"Verifique que los campos esten correctamente insertados","Error",JOptionPane.ERROR_MESSAGE);
@@ -278,7 +279,7 @@ public class Grupo extends JDialog implements SelectionListener {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-		
+			JOptionPane.showMessageDialog(null,"Verifique que los campos esten correctamente insertados","Error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }
