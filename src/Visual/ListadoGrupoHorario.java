@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -20,6 +21,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -99,6 +101,22 @@ public class ListadoGrupoHorario extends JDialog {
 			}
 			{
 				btneliminar = new JButton("Eliminar");
+				btneliminar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int selectedRow = tablagrupohorario.getSelectedRow();
+						int option = JOptionPane.showOptionDialog(null, "�Est� seguro de que desea continuar?",
+						        "Confirmar eliminaci�n", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+						        new Object[] {"Si", "No"}, null);
+						if (option == 0) {
+							eliminarGrupo(tablagrupohorario.getValueAt(selectedRow, 0).toString(),
+									tablagrupohorario.getValueAt(selectedRow, 2).toString(),
+									tablagrupohorario.getValueAt(selectedRow, 1).toString());
+							btneliminar.setEnabled(false);
+							tablagrupohorario.clearSelection();
+							loadListado(model);
+						}
+					}
+				});
 				btneliminar.setEnabled(false);
 				btneliminar.setActionCommand("OK");
 				buttonPane.add(btneliminar);
@@ -120,6 +138,25 @@ public class ListadoGrupoHorario extends JDialog {
 			btneliminar.setText("Seleccionar");
 		}
 		loadListado(model);
+	}
+	
+	
+	private void eliminarGrupo(String numgrupo, String periodoacad, String asignatura) {
+		Connection conexion = ConexionDB.conectarDB();
+		
+		try {
+			String sql = "DELETE FROM GrupoHorario WHERE NumGrupo = '" + numgrupo + "' AND CodAsignatura = '" + asignatura
+					+ "' AND CodPeriodoAcad = '" + periodoacad + "'";
+			Statement stm = conexion.createStatement();
+			stm.executeUpdate(sql);
+			
+			conexion.close();
+			JOptionPane.showMessageDialog(null,"Eliminacion exitosa","Informacion",JOptionPane.INFORMATION_MESSAGE);
+		}
+		catch(SQLException e) {
+			JOptionPane.showMessageDialog(null,"No fue posible eliminar el horario de grupo","Error",JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
 	}
 	
 	private void loadListado(DefaultTableModel model) {
