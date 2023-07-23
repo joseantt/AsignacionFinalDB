@@ -6,9 +6,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -32,6 +34,7 @@ public class ListadoInscripcion extends JDialog {
 	private JButton btneliminar;
 	private JButton btnActualizar;
 	private DefaultTableModel model;
+	private int indiceFilaSeleccionada = -1;
 
 	/**
 	 * Launch the application.
@@ -50,6 +53,7 @@ public class ListadoInscripcion extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListadoInscripcion() {
+		setTitle("Listado de inscripciones");
 		setBounds(100, 100, 759, 462);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -100,6 +104,67 @@ public class ListadoInscripcion extends JDialog {
 				btneliminar = new JButton("Eliminar");
 				btneliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						int selection = JOptionPane.showOptionDialog(null, "¿Está seguro de que desea continuar?",
+						        "Confirmar eliminaciï¿½n", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+						        new Object[] {"Si", "No"}, null);
+						if(selection == 0) {
+							indiceFilaSeleccionada = listainscripciones.getSelectedRow();
+							if(indiceFilaSeleccionada != -1) {
+								String codPeriodo = (String) listainscripciones.getValueAt(indiceFilaSeleccionada, 0);
+								String matricula = (String) listainscripciones.getValueAt(indiceFilaSeleccionada, 1);
+								String codAsignatura = (String) listainscripciones.getValueAt(indiceFilaSeleccionada, 2);
+								String numGrupo = (String) listainscripciones.getValueAt(indiceFilaSeleccionada, 3);
+								eliminarInscripcion(codPeriodo, matricula, codAsignatura, numGrupo);
+								actualizarFilasInscripcion((DefaultTableModel)listainscripciones.getModel());
+								indiceFilaSeleccionada = -1;
+							}
+							
+							listainscripciones.clearSelection();
+							btneliminar.setEnabled(false);
+						}
+					}
+
+					private void actualizarFilasInscripcion(DefaultTableModel model) {
+						model.setRowCount(0);
+						try {
+							Connection conexion = ConexionDB.conectarDB();
+							String sql = "SELECT * FROM Inscripcion";
+							PreparedStatement p = conexion.prepareStatement(sql);
+							ResultSet rs = p.executeQuery();
+							
+							while (rs.next()) {
+					            String codPeriodo = rs.getString("CodPeriodoAcad");
+					            String matricula = rs.getString("Matricula");
+					            String asignatura = rs.getString("CodAsignatura");
+					            String numGrupo = rs.getString("NumGrupo");
+					            String[] fila = {codPeriodo, matricula, asignatura, numGrupo};
+					            model.addRow(fila);
+					        }
+							p.close();
+							conexion.close();
+						}
+						catch(SQLException e) {
+							e.printStackTrace();
+						} 						
+					}
+
+					private void eliminarInscripcion(String codPeriodo, String matricula, String codAsignatura,
+							String numGrupo) {
+						Connection conexion = ConexionDB.conectarDB();
+						try {
+							String sql = "DELETE FROM Inscripcion WHERE CodPeriodoAcad = '"+codPeriodo+
+									"' AND Matricula = '"+matricula+"' AND CodAsignatura = '"+codAsignatura+
+									"' AND NumGrupo = '"+numGrupo+"'";
+							Statement stm = conexion.createStatement();
+							int result = stm.executeUpdate(sql);
+							
+							//Hacer limitacion para delete
+							
+							conexion.close();
+						}
+						catch(SQLException e) {
+							e.printStackTrace();
+						}
 						
 					}
 				});
@@ -110,6 +175,11 @@ public class ListadoInscripcion extends JDialog {
 			}
 			{
 				btncancelar = new JButton("Cancelar");
+				btncancelar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				btncancelar.setActionCommand("Cancel");
 				buttonPane.add(btncancelar);
 			}
