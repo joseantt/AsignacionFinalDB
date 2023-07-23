@@ -35,10 +35,10 @@ public class ListadoGrupoHorario extends JDialog {
 	
 	/**
 	 * Launch the application.
-	 *
+	 */
 	public static void main(String[] args) {
 		try {
-			ListadoGrupoHorario dialog = new ListadoGrupoHorario();
+			ListadoGrupoHorario dialog = new ListadoGrupoHorario(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -125,7 +125,7 @@ public class ListadoGrupoHorario extends JDialog {
 		Connection conexion = ConexionDB.conectarDB();
 		model.setRowCount(0);
 		try {
-			String sql = "SELECT * FROM Inscripcion";
+			String sql = "SELECT * FROM GrupoHorario";
 			PreparedStatement p = conexion.prepareStatement(sql);
 			ResultSet rs = p.executeQuery();
 			

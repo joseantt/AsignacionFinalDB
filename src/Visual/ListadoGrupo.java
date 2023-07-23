@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -36,10 +37,10 @@ public class ListadoGrupo extends JDialog {
 
 	/**
 	 * Launch the application.
-	 *
+	 */
 	public static void main(String[] args) {
 		try {
-			ListadoGrupo dialog = new ListadoGrupo(true);
+			ListadoGrupo dialog = new ListadoGrupo(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -107,7 +108,10 @@ public class ListadoGrupo extends JDialog {
 				            Object value = model.getValueAt(selectedRow, 0);
 				            listener.setValorSeleccionado(value);
 				            dispose();
-				        }
+				        }else {
+							
+				        	
+						}
 					}
 				});
 				
@@ -134,6 +138,9 @@ public class ListadoGrupo extends JDialog {
 		loadListado(model);
 	}
 	
+	private void eliminarGrupo() {
+		
+	}
 
 	private void loadListado(DefaultTableModel model) {
 		

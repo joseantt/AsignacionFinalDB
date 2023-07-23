@@ -32,11 +32,10 @@ public class ListadoInscripcion extends JDialog {
 	private JButton btneliminar;
 	private JButton btnActualizar;
 	private DefaultTableModel model;
-	private selectionlistener listener;
 
 	/**
 	 * Launch the application.
-	 *
+	 */
 	public static void main(String[] args) {
 		try {
 			ListadoInscripcion dialog = new ListadoInscripcion();
@@ -50,7 +49,7 @@ public class ListadoInscripcion extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ListadoInscripcion(selectionlistener listener) {
+	public ListadoInscripcion() {
 		setBounds(100, 100, 759, 462);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -100,12 +99,7 @@ public class ListadoInscripcion extends JDialog {
 				btneliminar = new JButton("Eliminar");
 				btneliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						 int selectedRow = listainscripciones.getSelectedRow();
-					        if (selectedRow >= 0 && listener != null) {
-					            Object value = model.getValueAt(selectedRow, 0);
-					            listener.setValorSeleccionado(value);
-					            dispose();
-					        }
+						
 					}
 				});
 				btneliminar.setEnabled(false);
@@ -119,10 +113,7 @@ public class ListadoInscripcion extends JDialog {
 				buttonPane.add(btncancelar);
 			}
 		}
-		if (listener != null) {
-			this.listener = listener;
-			btneliminar.setText("Seleccionar");
-		}
+		
 		loadListado(model);
 	}
 

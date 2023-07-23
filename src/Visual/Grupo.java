@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import Database.ConexionDB;
 import logico.SelectionListener;
 
 import java.awt.Color;
@@ -16,6 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -145,14 +149,15 @@ public class Grupo extends JDialog implements SelectionListener {
 				JButton btncrear = new JButton("Crear");
 				btncrear.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (txtnumerogrupo.getText().length() != 3 )
+						if (txtnumerogrupo.getText().length() != 3 || txtcodasignatura.getText().isEmpty() || 
+								txtcodperiodoacad.getText().isEmpty() )
 							JOptionPane.showMessageDialog(null,"Ha ingresado un codigo invalido","Error",JOptionPane.INFORMATION_MESSAGE);
 						else {
-							String[] valores = {txtnumerogrupo.getText(), txtcodperiodoacad.getText(), 
-									txtcodasignatura.getText(), txthorario.getText(), spncupo.getValue().toString()};
-							//agregarFilaAsignatura(valores, 2);
-							//limpiarCampos();
-							JOptionPane.showMessageDialog(null,"Se ha ingresado una asignatura correctamente","Error",JOptionPane.INFORMATION_MESSAGE);
+							String[] valores = {txtcodperiodoacad.getText(), txtcodasignatura.getText(), 
+									txtnumerogrupo.getText(), txthorario.getText()};
+							agregarGrupo(valores);
+							
+							JOptionPane.showMessageDialog(null,"El grupo ha sido insertado correctamente","Error",JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
 				});
@@ -170,6 +175,25 @@ public class Grupo extends JDialog implements SelectionListener {
 				btncancelar.setActionCommand("Cancel");
 				buttonPane.add(btncancelar);
 			}
+		}
+	}
+	
+	private void agregarGrupo(String[] valoresTipoString) {
+		try {
+			Connection conexion = ConexionDB.conectarDB();
+			
+			String sql = "INSERT Grupo VALUES ('"+valoresTipoString[0]+"','"+valoresTipoString[1]+"','"+valoresTipoString[2]+"','"
+					+spncupo.getValue()+"','"+valoresTipoString[3]+"')";
+			
+			Statement stm = conexion.createStatement();
+			int result = stm.executeUpdate(sql);
+			
+			//Hacer limitacion para que no se ingrese un usuario con el mismo ID
+			
+			conexion.close();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
 		}
 	}
 	
