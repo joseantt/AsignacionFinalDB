@@ -165,12 +165,11 @@ public class AgregarAsignatura extends JDialog {
 							dispose();
 						}else {
 							if (txtcodigo.getText().length() != 7)
-								JOptionPane.showMessageDialog(null,"Ha ingresado un codigo invalido","Error",JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(null,"Ha ingresado un codigo invalido","Error",JOptionPane.ERROR_MESSAGE);
 							else {
 								String[] valores = {txtcodigo.getText(), txtnombre.getText()};
 								agregarFilaAsignatura(valores, 2);
 								limpiarCampos();
-								JOptionPane.showMessageDialog(null,"Se ha ingresado una asignatura correctamente","Error",JOptionPane.INFORMATION_MESSAGE);
 							}
 						}	
 					}
@@ -208,14 +207,13 @@ public class AgregarAsignatura extends JDialog {
 			sql+=", "+(Integer)spncreditos.getValue()+", "+(Integer)spnteoricas.getValue()
 				+", "+(Integer)spnpracticas.getValue()+')';
 			Statement stm = conexion.createStatement();
-			int result = stm.executeUpdate(sql);
-			
-			//Hacer limitacion para que no se ingrese un usuario con el mismo ID
+			stm.executeUpdate(sql);
 			
 			conexion.close();
+			JOptionPane.showMessageDialog(null,"Se ha ingresado una asignatura correctamente","Informacion",JOptionPane.INFORMATION_MESSAGE);
 		}
 		catch(SQLException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Verifique que los campos esten correctamente insertados","Error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
