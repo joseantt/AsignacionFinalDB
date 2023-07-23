@@ -18,12 +18,15 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JTextField;
+
 
 public class Grupo extends JDialog implements SelectionListener {
 
@@ -42,7 +45,7 @@ public class Grupo extends JDialog implements SelectionListener {
 	 */
 	public static void main(String[] args) {
 		try {
-			Grupo dialog = new Grupo();
+			Grupo dialog = new Grupo(null,null,null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -53,7 +56,7 @@ public class Grupo extends JDialog implements SelectionListener {
 	/**
 	 * Create the dialog.
 	 */
-	public Grupo() {
+	public Grupo(String numgrupo, String codperiodo, String codasignatura) {
 		setTitle("Crear Grupo");
 		setBounds(100, 100, 577, 402);
 		getContentPane().setLayout(new BorderLayout());
@@ -153,16 +156,21 @@ public class Grupo extends JDialog implements SelectionListener {
 				btncrear = new JButton("Crear");
 				btncrear.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (txtnumerogrupo.getText().length() != 3 ) {
-							JOptionPane.showMessageDialog(null,"Numero de grupo erroneamente insertado","Error",JOptionPane.ERROR_MESSAGE);
-						}else if (txtcodasignatura.getText().isEmpty()) {
-							JOptionPane.showMessageDialog(null,"Codigo de asignatura no encontrado","Error",JOptionPane.ERROR_MESSAGE);
-						}else if (txtcodperiodoacad.getText().isEmpty()) {
-							JOptionPane.showMessageDialog(null,"Periodo academico no encontrado","Error",JOptionPane.ERROR_MESSAGE);
+						if (numgrupo == null) {
+							if (txtnumerogrupo.getText().length() != 3 ) {
+								JOptionPane.showMessageDialog(null,"Numero de grupo erroneamente insertado","Error",JOptionPane.ERROR_MESSAGE);
+							}else if (txtcodasignatura.getText().isEmpty()) {
+								JOptionPane.showMessageDialog(null,"Codigo de asignatura no encontrado","Error",JOptionPane.ERROR_MESSAGE);
+							}else if (txtcodperiodoacad.getText().isEmpty()) {
+								JOptionPane.showMessageDialog(null,"Periodo academico no encontrado","Error",JOptionPane.ERROR_MESSAGE);
+							}else {
+								String[] valores = {txtcodperiodoacad.getText(), txtcodasignatura.getText(), 
+										txtnumerogrupo.getText(), txthorario.getText()};
+								agregarGrupo(valores);
+							}
 						}else {
-							String[] valores = {txtcodperiodoacad.getText(), txtcodasignatura.getText(), 
-									txtnumerogrupo.getText(), txthorario.getText()};
-							agregarGrupo(valores);
+							updateGrupo((int) spncupo.getValue(), txthorario.getText(), numgrupo, codperiodo, codasignatura);
+							dispose();
 						}
 					}
 				});
@@ -180,6 +188,35 @@ public class Grupo extends JDialog implements SelectionListener {
 				btncancelar.setActionCommand("Cancel");
 				buttonPane.add(btncancelar);
 			}
+		}
+		if (numgrupo != null) {
+			loadGrupo(numgrupo,codperiodo,codasignatura);
+			btncrear.setText("Modificar");
+		}
+	}
+	
+	private void loadGrupo(String numgrupo, String codperiodo, String codasignatura) {
+		txtcodasignatura.setEditable(false);
+		txtcodperiodoacad.setEditable(false);
+		txtnumerogrupo.setEditable(false);
+		btncodasignatura.setEnabled(false);
+		btncodperiodo.setEnabled(false);
+		String[] pks = {numgrupo,codperiodo,codasignatura};
+		String[] nombrespks = {"NumGrupo","CodPeriodoAcad","CodAsignatura"};
+		
+		try {
+			ResultSet rs = ConexionDB.buscarFilasTabla("Grupo", nombrespks, pks, 3);
+			rs.next();
+			
+			txtnumerogrupo.setText(rs.getString(nombrespks[0]));
+			txtcodperiodoacad.setText(rs.getString(nombrespks[1]));
+			txtcodasignatura.setText(rs.getString(nombrespks[2]));
+			txthorario.setText(rs.getString("Horario"));
+			spncupo.setValue(rs.getInt("CupoGrupo"));
+		
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
 		}
 	}
 	
@@ -210,5 +247,30 @@ public class Grupo extends JDialog implements SelectionListener {
 			txtcodasignatura.setText(valor.toString());
 		}
 		
+	}
+	
+	private void updateGrupo(int cupo, String horario, String numgrupo, String periodoacad, String asignatura) {
+		Connection conexion = ConexionDB.conectarDB();
+		
+		try {
+			String sql = "UPDATE Grupo SET CupoGrupo = ?, Horario = ? WHERE NumGrupo = ? AND CodPeriodoAcad = ? AND CodAsignatura = ?";
+			
+			PreparedStatement stm = conexion.prepareStatement(sql);
+			stm.setInt(1, cupo);
+			stm.setString(2, horario);
+			stm.setString(3, numgrupo);
+			stm.setString(4, periodoacad);
+			stm.setString(5, asignatura);
+		
+			stm.executeUpdate();
+			
+			
+			conexion.close();
+			JOptionPane.showMessageDialog(null, "Grupo modificado satisfactoriamente", "Información",JOptionPane.INFORMATION_MESSAGE);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		
+		}
 	}
 }

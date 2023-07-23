@@ -36,6 +36,7 @@ public class ListadoGrupo extends JDialog {
 	private JButton btnActualizar;
 	private DefaultTableModel model;
 	private selectionlistener listener;
+	private JButton btnmodificar;
 
 	/**
 	 * Launch the application.
@@ -75,6 +76,7 @@ public class ListadoGrupo extends JDialog {
 							int selectedrow = listagrupo.getSelectedRow();
 							if (selectedrow >= 0) {
 								btneliminar.setEnabled(true);
+								btnmodificar.setEnabled(true);
 							}
 						}
 					});
@@ -98,6 +100,7 @@ public class ListadoGrupo extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						loadListado(model);
 						btneliminar.setEnabled(false);
+						btnmodificar.setEnabled(false);
 					}
 				});
 				buttonPane.add(btnActualizar);
@@ -120,6 +123,7 @@ public class ListadoGrupo extends JDialog {
 										listagrupo.getValueAt(selectedRow, 2).toString(),
 										listagrupo.getValueAt(selectedRow, 1).toString());
 								btneliminar.setEnabled(false);
+								btnmodificar.setEnabled(false);
 								listagrupo.clearSelection();
 								loadListado(model);
 							}
@@ -127,6 +131,20 @@ public class ListadoGrupo extends JDialog {
 						}
 					}
 				});
+				{
+					btnmodificar = new JButton("Modificar");
+					btnmodificar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							int row = listagrupo.getSelectedRow();
+							Grupo grupo = new Grupo(listagrupo.getValueAt(listagrupo.getSelectedRow(), 0).toString(),
+									listagrupo.getValueAt(row, 2).toString(), listagrupo.getValueAt(row, 1).toString());
+							grupo.setVisible(true);
+							grupo.setModal(true);
+						}
+					});
+					btnmodificar.setEnabled(false);
+					buttonPane.add(btnmodificar);
+				}
 				
 				btneliminar.setEnabled(false);
 				btneliminar.setActionCommand("OK");
