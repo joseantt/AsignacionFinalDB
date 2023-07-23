@@ -14,7 +14,6 @@ public class Main {
 		int cantColumns = 8;
 		String[] columnas = {"Nombre1", "Nombre2", "Apellido1", "Apellido2", "Carrera", "CategoriaPago", "Nacionalidad", "Direccion"};
 		String[] valores = {"Cristopher", "Edward", "Nolan", "Tav", "COM", "V", "GBR", "Padre las Casas, Santiago, Rep. Dom"};
-		 
 		
 		String sql = "UPDATE "+nombreTabla+" SET ";
 		for(int i = 0; i < cantColumns; i++) {
