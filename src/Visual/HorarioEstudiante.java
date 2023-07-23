@@ -98,7 +98,6 @@ public class HorarioEstudiante extends JDialog {
 		model.setRowCount(0);
 		try {
 			String sql = "EXEC dbo.HorarioEstudiante '"+matricula+"', '"+codPeriodoAcad+"'";
-			System.out.println(sql);
 			PreparedStatement p = conexion.prepareStatement(sql);
 			ResultSet rs = p.executeQuery();
 			

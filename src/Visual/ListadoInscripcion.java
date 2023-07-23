@@ -79,7 +79,7 @@ public class ListadoInscripcion extends JDialog {
 						}
 					});
 					listainscripciones.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-					String[] columnas = {"Matricula", "Codigo de asignatura", "Codigo periodo academico", "Numero de grupo"};
+					String[] columnas = {"Codigo Periodo Acad.", "Matricula", "Codigo de asignatura", "Numero de grupo"};
 					model = (DefaultTableModel) listainscripciones.getModel();
 					model.setColumnIdentifiers(columnas);
 					scrollPane.setViewportView(listainscripciones);
@@ -120,6 +120,7 @@ public class ListadoInscripcion extends JDialog {
 							}
 							
 							listainscripciones.clearSelection();
+							loadListado(model);
 							btneliminar.setEnabled(false);
 						}
 					}
@@ -148,24 +149,25 @@ public class ListadoInscripcion extends JDialog {
 						} 						
 					}
 
-					private void eliminarInscripcion(String codPeriodo, String matricula, String codAsignatura,
-							String numGrupo) {
-						Connection conexion = ConexionDB.conectarDB();
-						try {
-							String sql = "DELETE FROM Inscripcion WHERE CodPeriodoAcad = '"+codPeriodo+
-									"' AND Matricula = '"+matricula+"' AND CodAsignatura = '"+codAsignatura+
-									"' AND NumGrupo = '"+numGrupo+"'";
-							Statement stm = conexion.createStatement();
-							int result = stm.executeUpdate(sql);
-							
-							//Hacer limitacion para delete
-							
-							conexion.close();
-						}
-						catch(SQLException e) {
-							e.printStackTrace();
-						}
-						
+					private void eliminarInscripcion(String codPeriodo, String matricula, String codAsignatura, String numGrupo) {
+					    Connection conexion = ConexionDB.conectarDB();
+					    try {
+					        String sql = "DELETE FROM Inscripcion WHERE CodPeriodoAcad = ? AND Matricula = ? AND CodAsignatura = ? AND NumGrupo = ?";
+					        PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+					        preparedStatement.setString(1, codPeriodo);
+					        preparedStatement.setString(2, matricula);
+					        preparedStatement.setString(3, codAsignatura);
+					        preparedStatement.setString(4, numGrupo);
+
+					        int result = preparedStatement.executeUpdate();
+
+					        // Puedes realizar alguna acción con el resultado, si lo necesitas.
+					        // Por ejemplo, verificar si se eliminó correctamente alguna fila.
+					        
+					        conexion.close();
+					    } catch (SQLException e) {
+					        e.printStackTrace();
+					    }
 					}
 				});
 				btneliminar.setEnabled(false);
@@ -184,7 +186,6 @@ public class ListadoInscripcion extends JDialog {
 				buttonPane.add(btncancelar);
 			}
 		}
-		
 		loadListado(model);
 	}
 
@@ -202,7 +203,7 @@ public class ListadoInscripcion extends JDialog {
 	            String codasignatura = rs.getString("CodAsignatura");
 	            String numgrupo = rs.getString("NumGrupo");
 	            String matricula = rs.getString("Matricula");
-	            String[] fila = {matricula ,codasignatura, codperiodoacad, numgrupo};
+	            String[] fila = {codperiodoacad ,matricula, codasignatura, numgrupo};
 	            
 	            model.addRow(fila);
 	        }

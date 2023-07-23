@@ -48,18 +48,18 @@ public class ConexionDB {
 	}
 	
 	private static String queryInsert(String nombreTabla, String[] valores, int cantCampos) {
-		String sql = "INSERT "+ nombreTabla +" VALUES (";
-		
-		for(int i = 0; i < cantCampos; i++) {
-			sql += "'"+valores[i]+"'";
-			if(i != cantCampos-1) {
-				sql += ',';
-			}
-		}
-		sql += ')';
-		
-		return sql;
-	} 
+	    StringBuilder sql = new StringBuilder("INSERT ").append(nombreTabla).append(" VALUES (");
+
+	    for (int i = 0; i < cantCampos; i++) {
+	        sql.append("'").append(valores[i]).append("'");
+	        if (i != cantCampos - 1) {
+	            sql.append(',');
+	        }
+	    }
+	    sql.append(')');
+
+	    return sql.toString();
+	}
 	
 	public static ResultSet buscarFilasTabla(String nombreTabla, String[] pkNombres, String[] pkValores, int cantElementosPk) {
 		try {
@@ -76,14 +76,15 @@ public class ConexionDB {
 	}
 	
 	private static String queryBuscar(String nombreTabla, String[] pkNombres, String[] pkValores, int cantElementosPk) {
-		String sql = "SELECT * FROM "+ nombreTabla + " WHERE ";
-		for(int i = 0; i < cantElementosPk; i++) {
-			sql += nombreTabla+'.'+pkNombres[i]+" = "+"'"+pkValores[i]+"'";
-			if(i != cantElementosPk-1)
-				sql += " AND ";
-		}
-		
-		return sql;
+	    StringBuilder sql = new StringBuilder("SELECT * FROM ").append(nombreTabla).append(" WHERE ");
+	    for (int i = 0; i < cantElementosPk; i++) {
+	        sql.append(nombreTabla).append('.').append(pkNombres[i]).append(" = ").append("'").append(pkValores[i]).append("'");
+	        if (i != cantElementosPk - 1) {
+	            sql.append(" AND ");
+	        }
+	    }
+
+	    return sql.toString();
 	}
 	
 	public static void updateTabla(String nombreTabla, String[]columnas, String[] valores, int cantColumns, String[]Pks, String[] valoresPks, int cantPk) {
@@ -103,23 +104,23 @@ public class ConexionDB {
 		}
 	}
 	
-	private static String queryUpdate(String nombreTabla, String[]columnas, String[] valores, int cantColumns, String[]Pks, String[] valoresPks, int cantPk) {
-		String sql = "UPDATE "+nombreTabla+" SET ";
-		for(int i = 0; i < cantColumns; i++) {
-			sql+= columnas[i]+" = "+ "'"+valores[i]+"'";
-			if(i != cantColumns-1) {
-				sql+= ", ";
-			}
-		}
-		
-		sql += " WHERE ";
-		for(int j = 0; j < cantPk; j++) {
-			sql+= Pks[j]+" = "+ "'"+valoresPks[j]+"'";
-			if(j != cantPk-1) {
-				sql+= " AND ";
-			}
-		}
-		
-		return sql;
+	private static String queryUpdate(String nombreTabla, String[] columnas, String[] valores, int cantColumns, String[] Pks, String[] valoresPks, int cantPk) {
+	    StringBuilder sql = new StringBuilder("UPDATE ").append(nombreTabla).append(" SET ");
+	    for (int i = 0; i < cantColumns; i++) {
+	        sql.append(columnas[i]).append(" = ").append("'").append(valores[i]).append("'");
+	        if (i != cantColumns - 1) {
+	            sql.append(", ");
+	        }
+	    }
+
+	    sql.append(" WHERE ");
+	    for (int j = 0; j < cantPk; j++) {
+	        sql.append(Pks[j]).append(" = ").append("'").append(valoresPks[j]).append("'");
+	        if (j != cantPk - 1) {
+	            sql.append(" AND ");
+	        }
+	    }
+
+	    return sql.toString();
 	}
 }
