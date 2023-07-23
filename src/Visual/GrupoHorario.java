@@ -23,6 +23,8 @@ import java.util.Calendar;
 import javax.swing.SpinnerNumberModel;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
@@ -47,7 +49,7 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 	 */
 	public static void main(String[] args) {
 		try {
-			GrupoHorario dialog = new GrupoHorario();
+			GrupoHorario dialog = new GrupoHorario("320222023", "ICC-201", "001");
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -58,7 +60,7 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 	/**
 	 * Create the dialog.
 	 */
-	public GrupoHorario() {
+	public GrupoHorario(String codPeriodoAcad, String codAsignatura, String numGrupo) {
 		setTitle("Crear Horario de grupo");
 		setBounds(100, 100, 660, 418);
 		setLocationRelativeTo(null);
@@ -117,6 +119,8 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 			}
 			{
 				txtnumerogrupo = new JTextField();
+				if(codPeriodoAcad != null || codAsignatura != null || numGrupo != null)
+					txtnumerogrupo.setEnabled(false);
 				txtnumerogrupo.setBounds(12, 130, 148, 21);
 				panel.add(txtnumerogrupo);
 				txtnumerogrupo.setColumns(10);
@@ -141,6 +145,9 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 			}
 			{
 				btnperiodoacad = new JButton("Seleccionar");
+				if(codPeriodoAcad != null || codAsignatura != null || numGrupo != null)
+					btnperiodoacad.setEnabled(false);
+				
 				btnperiodoacad.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						ListadoPeriodosAcademicos periodosAcademicos = new ListadoPeriodosAcademicos(GrupoHorario.this);
@@ -153,6 +160,8 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 			}
 			{
 				btnasignatura = new JButton("Seleccionar");
+				if(codPeriodoAcad != null || codAsignatura != null || numGrupo != null)
+					btnasignatura.setEnabled(false);
 				btnasignatura.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						ListadoAsignaturas asignaturas = new ListadoAsignaturas(GrupoHorario.this);
@@ -171,16 +180,26 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btncrear = new JButton("Crear");
+				if(codPeriodoAcad != null && codAsignatura != null && numGrupo != null)
+					btncrear.setText("Modificar");
 				btncrear.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (txtnumerogrupo.getText().length() != 3) {
-							JOptionPane.showMessageDialog(null,"El numero de grupo debe ser de 3 elementos.","Error",JOptionPane.ERROR_MESSAGE);
+						if(codPeriodoAcad != null && codAsignatura != null && numGrupo != null){
+							Timestamp ini = new Timestamp (((Date)spnfechainicial.getValue()).getTime());
+							Timestamp fin = new Timestamp (((Date)spnfechafinal.getValue()).getTime());
+							updateGrupoHorario(codPeriodoAcad, codAsignatura, numGrupo, (Integer)spndia.getValue(), ini, fin);
+							JOptionPane.showMessageDialog(null,"El horario del grupo ha sido modificado correctamente","Información",JOptionPane.INFORMATION_MESSAGE);
+
 						}else {
+							if (txtnumerogrupo.getText().length() != 3) {
+								JOptionPane.showMessageDialog(null,"El numero de grupo debe ser de 3 elementos.","Error",JOptionPane.ERROR_MESSAGE);
+							}else {
+								
+								String[] valoreStrings = {txtcodperiodoacad.getText(),txtcodasignatura.getText(),txtnumerogrupo.getText()};
+								agregarGrupoHorario(valoreStrings);
+								JOptionPane.showMessageDialog(null,"El horario del grupo ha sido insertado correctamente","Información",JOptionPane.INFORMATION_MESSAGE);
 							
-							String[] valoreStrings = {txtcodperiodoacad.getText(),txtcodasignatura.getText(),txtnumerogrupo.getText()};
-							agregarGrupoHorario(valoreStrings);
-							JOptionPane.showMessageDialog(null,"El grupo ha sido insertado correctamente","Error",JOptionPane.INFORMATION_MESSAGE);
-						
+							}
 						}
 					}
 				});
@@ -199,6 +218,7 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 				buttonPane.add(btncancelar);
 			}
 		}
+		restablecerCampos(codPeriodoAcad, codAsignatura, numGrupo);
 	}
 
 
@@ -211,8 +231,22 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 		try {
 			Connection conexion = ConexionDB.conectarDB();
 			
-			String sql = "INSERT GrupoHorario VALUES ('"+valoresTipoString[0]+"','"+valoresTipoString[1]+"','"+valoresTipoString[2]+"','"
-					+spndia.getValue()+"','"+ini+"','"+ fin+"')";
+			StringBuilder sqlBuilder = new StringBuilder();
+			sqlBuilder.append("INSERT GrupoHorario VALUES ('")
+			          .append(valoresTipoString[0])
+			          .append("','")
+			          .append(valoresTipoString[1])
+			          .append("','")
+			          .append(valoresTipoString[2])
+			          .append("','")
+			          .append(spndia.getValue())
+			          .append("','")
+			          .append(ini)
+			          .append("','")
+			          .append(fin)
+			          .append("')");
+
+			String sql = sqlBuilder.toString();
 			
 			Statement stm = conexion.createStatement();
 			stm.executeUpdate(sql);
@@ -234,5 +268,48 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 			txtcodasignatura.setText(valor.toString());
 		}
 	}
-
+	
+	private void restablecerCampos(String codPeriodoAcad, String codAsignatura, String numGrupo) {
+		if(codPeriodoAcad == null || codAsignatura == null || numGrupo == null)
+			return;
+		String[] pkNombres = {"CodPeriodoAcad", "CodAsignatura", "NumGrupo"};
+		String[] pkValores = {codPeriodoAcad, codAsignatura, numGrupo};
+		try {
+			ResultSet rs = ConexionDB.buscarFilasTabla("GrupoHorario", pkNombres, pkValores, 3);
+			rs.next();
+			txtcodasignatura.setText(codAsignatura);
+			txtcodperiodoacad.setText(codPeriodoAcad);
+			txtnumerogrupo.setText(numGrupo);
+			spnfechainicial.setValue((Date)rs.getTimestamp("FechaInicial"));
+			spnfechafinal.setValue((Date)rs.getTimestamp("FechaFinal"));
+			spndia.setValue(rs.getInt("Dia"));
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void updateGrupoHorario(String CodPeriodoAcad, String CodAsignatura, String NumGrupo, int Dia, Timestamp FechaInicial, Timestamp FechaFinal) {
+		Connection conexion = ConexionDB.conectarDB();
+		
+		try {
+			String sql = "UPDATE GrupoHorario SET Dia = ?, FechaInicial = ?, FechaFinal = ? WHERE CodPeriodoAcad = ? AND CodAsignatura = ? AND NumGrupo = ?";
+			
+			PreparedStatement stm = conexion.prepareStatement(sql);
+			stm.setInt(1, Dia);
+			stm.setTimestamp(2, FechaInicial);
+			stm.setTimestamp(3, FechaFinal);
+			stm.setString(4, CodPeriodoAcad);
+			stm.setString(5, CodAsignatura);
+			stm.setString(6, NumGrupo);
+			stm.executeUpdate();
+			
+			stm.close();
+			conexion.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		
+		}
+	}
 }
