@@ -47,7 +47,7 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		try {
 			GrupoHorario dialog = new GrupoHorario("320222023", "ICC-201", "001");
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -55,7 +55,7 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	/**
 	 * Create the dialog.

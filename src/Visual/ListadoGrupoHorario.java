@@ -35,7 +35,8 @@ public class ListadoGrupoHorario extends JDialog {
 	private DefaultTableModel model;
 	private selectionlistener listener;
 	private JButton btnActualizar;
-	
+	private JButton btn_Modificar;
+	private int indiceFilaSeleccionada = -1;
 	/**
 	 * Launch the application.
 	 */
@@ -53,6 +54,7 @@ public class ListadoGrupoHorario extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListadoGrupoHorario(selectionlistener listener) {
+		setTitle("Listado de Horarios");
 		setBounds(100, 100, 811, 397);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -73,6 +75,7 @@ public class ListadoGrupoHorario extends JDialog {
 						public void mouseClicked(MouseEvent e) {
 							int selectedrow = tablagrupohorario.getSelectedRow();
 							if (selectedrow >= 0) {
+								btn_Modificar.setEnabled(true);
 								btneliminar.setEnabled(true);
 							}
 						}
@@ -104,8 +107,8 @@ public class ListadoGrupoHorario extends JDialog {
 				btneliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						int selectedRow = tablagrupohorario.getSelectedRow();
-						int option = JOptionPane.showOptionDialog(null, "ï¿½Estï¿½ seguro de que desea continuar?",
-						        "Confirmar eliminaciï¿½n", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+						int option = JOptionPane.showOptionDialog(null, "¿Está seguro de que desea continuar?",
+						        "Confirmar eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 						        new Object[] {"Si", "No"}, null);
 						if (option == 0) {
 							eliminarGrupo(tablagrupohorario.getValueAt(selectedRow, 0).toString(),
@@ -117,6 +120,29 @@ public class ListadoGrupoHorario extends JDialog {
 						}
 					}
 				});
+				{
+					btn_Modificar = new JButton("Modificar");
+					btn_Modificar.setEnabled(false);
+					btn_Modificar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							indiceFilaSeleccionada = tablagrupohorario.getSelectedRow();
+							if(indiceFilaSeleccionada != -1) {
+								GrupoHorario GH = new GrupoHorario(
+									(String)tablagrupohorario.getValueAt(indiceFilaSeleccionada, 2), 
+									(String)tablagrupohorario.getValueAt(indiceFilaSeleccionada, 1), 
+									(String)tablagrupohorario.getValueAt(indiceFilaSeleccionada, 0));
+								GH.setVisible(true);
+								loadListado((DefaultTableModel)tablagrupohorario.getModel());
+								indiceFilaSeleccionada = -1;
+							}
+							btn_Modificar.setEnabled(false);
+							btneliminar.setEnabled(false);
+							tablagrupohorario.clearSelection();
+						
+						}
+					});
+					buttonPane.add(btn_Modificar);
+				}
 				btneliminar.setEnabled(false);
 				btneliminar.setActionCommand("OK");
 				buttonPane.add(btneliminar);
