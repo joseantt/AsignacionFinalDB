@@ -167,6 +167,7 @@ public class Grupo extends JDialog implements SelectionListener {
 								String[] valores = {txtcodperiodoacad.getText(), txtcodasignatura.getText(), 
 										txtnumerogrupo.getText(), txthorario.getText()};
 								agregarGrupo(valores);
+								clean();
 							}
 						}else {
 							updateGrupo((int) spncupo.getValue(), txthorario.getText(), numgrupo, codperiodo, codasignatura);
@@ -220,6 +221,14 @@ public class Grupo extends JDialog implements SelectionListener {
 		}
 	}
 	
+	private void clean() {
+		txtcodasignatura.setText("");
+		txtcodperiodoacad.setText("");
+		txthorario.setText("");
+		txtnumerogrupo.setText("");
+		spncupo.setValue(0);
+	}
+	
 	private void agregarGrupo(String[] valoresTipoString) {
 		try {
 			Connection conexion = ConexionDB.conectarDB();
@@ -263,7 +272,6 @@ public class Grupo extends JDialog implements SelectionListener {
 			stm.setString(5, asignatura);
 		
 			stm.executeUpdate();
-			
 			
 			conexion.close();
 			JOptionPane.showMessageDialog(null, "Grupo modificado satisfactoriamente", "Información",JOptionPane.INFORMATION_MESSAGE);

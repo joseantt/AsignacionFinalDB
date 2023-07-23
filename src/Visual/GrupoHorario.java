@@ -47,15 +47,15 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		try {
-			GrupoHorario dialog = new GrupoHorario("320222023", "ICC-201", "001");
+			GrupoHorario dialog = new GrupoHorario(null,null,null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}*/
+	}
 
 	/**
 	 * Create the dialog.
@@ -188,7 +188,7 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 							Timestamp ini = new Timestamp (((Date)spnfechainicial.getValue()).getTime());
 							Timestamp fin = new Timestamp (((Date)spnfechafinal.getValue()).getTime());
 							updateGrupoHorario(codPeriodoAcad, codAsignatura, numGrupo, (Integer)spndia.getValue(), ini, fin);
-							JOptionPane.showMessageDialog(null,"El horario del grupo ha sido modificado correctamente","Información",JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null,"El horario del grupo ha sido modificado correctamente","Informaciï¿½n",JOptionPane.INFORMATION_MESSAGE);
 
 						}else {
 							if (txtnumerogrupo.getText().length() != 3) {
@@ -197,8 +197,8 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 								
 								String[] valoreStrings = {txtcodperiodoacad.getText(),txtcodasignatura.getText(),txtnumerogrupo.getText()};
 								agregarGrupoHorario(valoreStrings);
-								JOptionPane.showMessageDialog(null,"El horario del grupo ha sido insertado correctamente","Información",JOptionPane.INFORMATION_MESSAGE);
-							
+								JOptionPane.showMessageDialog(null,"El horario del grupo ha sido insertado correctamente","Informaciï¿½n",JOptionPane.INFORMATION_MESSAGE);
+								clean();
 							}
 						}
 					}
@@ -221,6 +221,12 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 		restablecerCampos(codPeriodoAcad, codAsignatura, numGrupo);
 	}
 
+	private void clean() {
+		txtcodasignatura.setText("");
+		txtcodperiodoacad.setText("");
+		txtnumerogrupo.setText("");
+		spndia.setValue(1);
+	}
 
 	private void agregarGrupoHorario(String[] valoresTipoString) {
 		

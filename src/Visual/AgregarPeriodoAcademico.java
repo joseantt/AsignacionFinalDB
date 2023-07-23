@@ -219,8 +219,9 @@ public class AgregarPeriodoAcademico extends JDialog {
 								new SimpleDateFormat("yyyy-MM-dd").format((Date)spn_FechaFinClases.getValue()), new SimpleDateFormat("yyyy-MM-dd").format((Date)spn_FechaLimitePago.getValue()), 
 								new SimpleDateFormat("yyyy-MM-dd").format((Date)spn_FechaLimitePrematricula.getValue()), new SimpleDateFormat("yyyy-MM-dd").format((Date)spn_FechaLimiteRetiro.getValue()),
 								new SimpleDateFormat("yyyy-MM-dd").format((Date)spn_FechaLimitePublicacion.getValue())};
-						ConexionDB.agregarFilaTabla("PeriodoAcademico", valores, 10);
-						JOptionPane.showMessageDialog(null,"El periodo ha sido ingresado satisfactoriamente","Información",JOptionPane.INFORMATION_MESSAGE);
+							ConexionDB.agregarFilaTabla("PeriodoAcademico", valores, 10);
+							JOptionPane.showMessageDialog(null,"El periodo ha sido ingresado satisfactoriamente","Informaciï¿½n",JOptionPane.INFORMATION_MESSAGE);
+							clean();
 						}
 					}
 				});
@@ -240,4 +241,15 @@ public class AgregarPeriodoAcademico extends JDialog {
 			}
 		}
 	}
+	
+	private void clean() {
+		txtcodigo.setText("");
+		txtdescripcion.setText("");
+	}
 }
+
+
+
+
+
+

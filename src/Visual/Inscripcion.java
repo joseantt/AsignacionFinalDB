@@ -167,7 +167,7 @@ public class Inscripcion extends JDialog implements SelectionListener{
 						String[] valores = {txtcodperiodoacad.getText(),txtmatricula.getText(),txtcodigoasignatura.getText(),txtnumerogrupo.getText()};
 						agregarInscripcion(valores);
 						JOptionPane.showMessageDialog(null, "Se ha inscrito satisfactoriamente", "Información",JOptionPane.INFORMATION_MESSAGE);
-						
+						clean();
 					}
 				});
 				btninscribir.setActionCommand("OK");
@@ -187,6 +187,12 @@ public class Inscripcion extends JDialog implements SelectionListener{
 		}
 	}
 	
+	private void clean() {
+		txtcodigoasignatura.setText("");
+		txtcodperiodoacad.setText("");
+		txtmatricula.setText("");
+		txtnumerogrupo.setText("");
+	}
 
 	private void agregarInscripcion(String[] valoresTipoString) {
 		try {
