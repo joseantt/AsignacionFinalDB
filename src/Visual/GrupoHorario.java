@@ -8,6 +8,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import logico.SelectionListener;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -19,13 +22,15 @@ import javax.swing.SpinnerNumberModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class GrupoHorario extends JDialog {
+public class GrupoHorario extends JDialog implements SelectionListener{
 
 	private final JPanel contentPanel = new JPanel();
 	private JButton btncancelar;
 	private JTextField txtcodperiodoacad;
 	private JTextField txtcodasignatura;
 	private JTextField txtnumerogrupo;
+	private JButton btnperiodoacad;
+	private JButton btnasignatura;
 
 	/**
 	 * Launch the application.
@@ -45,7 +50,7 @@ public class GrupoHorario extends JDialog {
 	 */
 	public GrupoHorario() {
 		setTitle("Crear Horario de grupo");
-		setBounds(100, 100, 473, 362);
+		setBounds(100, 100, 660, 418);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -88,12 +93,14 @@ public class GrupoHorario extends JDialog {
 			}
 			{
 				txtcodperiodoacad = new JTextField();
+				txtcodperiodoacad.setEditable(false);
 				txtcodperiodoacad.setBounds(12, 51, 148, 21);
 				panel.add(txtcodperiodoacad);
 				txtcodperiodoacad.setColumns(10);
 			}
 			{
 				txtcodasignatura = new JTextField();
+				txtcodasignatura.setEditable(false);
 				txtcodasignatura.setBounds(264, 51, 148, 21);
 				panel.add(txtcodasignatura);
 				txtcodasignatura.setColumns(10);
@@ -122,6 +129,30 @@ public class GrupoHorario extends JDialog {
 				spinner.setBounds(12, 200, 54, 22);
 				panel.add(spinner);
 			}
+			{
+				btnperiodoacad = new JButton("Seleccionar");
+				btnperiodoacad.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						ListadoPeriodosAcademicos periodosAcademicos = new ListadoPeriodosAcademicos(GrupoHorario.this);
+						periodosAcademicos.setVisible(true);
+						periodosAcademicos.setModal(true);
+					}
+				});
+				btnperiodoacad.setBounds(165, 50, 89, 23);
+				panel.add(btnperiodoacad);
+			}
+			{
+				btnasignatura = new JButton("Seleccionar");
+				btnasignatura.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						ListadoAsignaturas asignaturas = new ListadoAsignaturas(GrupoHorario.this);
+						asignaturas.setVisible(true);
+						asignaturas.setModal(true);
+					}
+				});
+				btnasignatura.setBounds(437, 50, 89, 23);
+				panel.add(btnasignatura);
+			}
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -144,6 +175,16 @@ public class GrupoHorario extends JDialog {
 				btncancelar.setActionCommand("Cancel");
 				buttonPane.add(btncancelar);
 			}
+		}
+	}
+
+	@Override
+	public void setValorSeleccionado(Object valor, String objetivo) {
+		// TODO Auto-generated method stub
+		if (objetivo.equals("periodo academico")) {
+			txtcodperiodoacad.setText(valor.toString());
+		}else if (objetivo.equals("codigo asignatura")) {
+			txtcodasignatura.setText(valor.toString());
 		}
 	}
 

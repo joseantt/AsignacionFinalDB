@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Database.ConexionDB;
+import Visual.Inscripcion.selectionlistener;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -31,10 +32,11 @@ public class ListadoInscripcion extends JDialog {
 	private JButton btneliminar;
 	private JButton btnActualizar;
 	private DefaultTableModel model;
+	private selectionlistener listener;
 
 	/**
 	 * Launch the application.
-	 */
+	 *
 	public static void main(String[] args) {
 		try {
 			ListadoInscripcion dialog = new ListadoInscripcion();
@@ -48,7 +50,7 @@ public class ListadoInscripcion extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ListadoInscripcion() {
+	public ListadoInscripcion(selectionlistener listener) {
 		setBounds(100, 100, 759, 462);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -68,7 +70,7 @@ public class ListadoInscripcion extends JDialog {
 						@Override
 						public void mouseClicked(MouseEvent e) {
 							int selectedrow = listainscripciones.getSelectedRow();
-							if (selectedrow > 0) {
+							if (selectedrow >= 0) {
 								btneliminar.setEnabled(true);
 							}
 						}
@@ -96,6 +98,16 @@ public class ListadoInscripcion extends JDialog {
 			}
 			{
 				btneliminar = new JButton("Eliminar");
+				btneliminar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						 int selectedRow = listainscripciones.getSelectedRow();
+					        if (selectedRow >= 0 && listener != null) {
+					            Object value = model.getValueAt(selectedRow, 0);
+					            listener.setValorSeleccionado(value);
+					            dispose();
+					        }
+					}
+				});
 				btneliminar.setEnabled(false);
 				btneliminar.setActionCommand("OK");
 				buttonPane.add(btneliminar);
@@ -106,6 +118,10 @@ public class ListadoInscripcion extends JDialog {
 				btncancelar.setActionCommand("Cancel");
 				buttonPane.add(btncancelar);
 			}
+		}
+		if (listener != null) {
+			this.listener = listener;
+			btneliminar.setText("Seleccionar");
 		}
 		loadListado(model);
 	}

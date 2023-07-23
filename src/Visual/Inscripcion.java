@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import Database.ConexionDB;
+import logico.SelectionListener;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -18,7 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class Inscripcion extends JDialog {
+public class Inscripcion extends JDialog implements SelectionListener{
 
 	private final JPanel contentPanel = new JPanel();
 	private JButton btncancelar;
@@ -31,6 +32,9 @@ public class Inscripcion extends JDialog {
 	private JTextField txtmatricula;
 	private JTextField txtcodigoasignatura;
 	private JTextField txtnumerogrupo;
+	private JButton btnselperiodo;
+	private JButton btnnumgrupo;
+	private JButton btnasignatura;
 
 	/**
 	 * Launch the application.
@@ -45,7 +49,9 @@ public class Inscripcion extends JDialog {
 		}
 	}
 
-	
+	interface selectionlistener{
+		void setValorSeleccionado(Object valor);
+	}
 	/**
 	 * Create the dialog.
 	 */
@@ -84,6 +90,7 @@ public class Inscripcion extends JDialog {
 			}
 			{
 				txtcodperiodoacad = new JTextField();
+				txtcodperiodoacad.setEditable(false);
 				txtcodperiodoacad.setBounds(12, 59, 167, 21);
 				panel.add(txtcodperiodoacad);
 				txtcodperiodoacad.setColumns(10);
@@ -96,15 +103,52 @@ public class Inscripcion extends JDialog {
 			}
 			{
 				txtcodigoasignatura = new JTextField();
+				txtcodigoasignatura.setEditable(false);
 				txtcodigoasignatura.setBounds(12, 199, 167, 21);
 				panel.add(txtcodigoasignatura);
 				txtcodigoasignatura.setColumns(10);
 			}
 			{
 				txtnumerogrupo = new JTextField();
+				txtnumerogrupo.setEditable(false);
 				txtnumerogrupo.setBounds(12, 269, 167, 21);
 				panel.add(txtnumerogrupo);
 				txtnumerogrupo.setColumns(10);
+			}
+			
+			btnselperiodo = new JButton("Seleccionar");
+			btnselperiodo.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ListadoPeriodosAcademicos periodosAcademicos = new ListadoPeriodosAcademicos(Inscripcion.this);
+					periodosAcademicos.setVisible(true);
+					periodosAcademicos.setModal(true);
+				}
+			});
+			btnselperiodo.setBounds(211, 58, 89, 23);
+			panel.add(btnselperiodo);
+			{
+				btnnumgrupo = new JButton("Seleccionar");
+				btnnumgrupo.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						ListadoGrupo listadoGrupo = new ListadoGrupo(null);
+						listadoGrupo.setVisible(true);
+						listadoGrupo.setModal(true);
+					}
+				});
+				btnnumgrupo.setBounds(211, 268, 89, 23);
+				panel.add(btnnumgrupo);
+			}
+			{
+				btnasignatura = new JButton("Seleccionar");
+				btnasignatura.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						ListadoAsignaturas asignaturas = new ListadoAsignaturas(Inscripcion.this);
+						asignaturas.setVisible(true);
+						asignaturas.setModal(true);
+					}
+				});
+				btnasignatura.setBounds(211, 198, 89, 23);
+				panel.add(btnasignatura);
 			}
 		}
 		{
@@ -139,5 +183,18 @@ public class Inscripcion extends JDialog {
 			}
 		}
 	}
+	
+	public void setValorSeleccionado(Object valor) {
+		txtnumerogrupo.setText(valor.toString());
+	}
 
+	@Override
+	public void setValorSeleccionado(Object valor, String objetivo) {
+		// TODO Auto-generated method stub
+		if (objetivo.equals("periodo academico")) {
+			txtcodperiodoacad.setText(valor.toString());
+		}else if (objetivo.equals("codigo asignatura")) {
+			txtcodigoasignatura.setText(valor.toString());
+		}
+	}
 }

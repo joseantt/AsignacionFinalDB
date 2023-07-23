@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Database.ConexionDB;
+import Visual.Inscripcion.selectionlistener;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -30,10 +31,11 @@ public class ListadoGrupoHorario extends JDialog {
 	private JButton btneliminar;
 	private JButton btncancelar;
 	private DefaultTableModel model;
-
+	private selectionlistener listener;
+	
 	/**
 	 * Launch the application.
-	 */
+	 *
 	public static void main(String[] args) {
 		try {
 			ListadoGrupoHorario dialog = new ListadoGrupoHorario();
@@ -47,7 +49,7 @@ public class ListadoGrupoHorario extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ListadoGrupoHorario() {
+	public ListadoGrupoHorario(selectionlistener listener) {
 		setBounds(100, 100, 811, 397);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -67,7 +69,7 @@ public class ListadoGrupoHorario extends JDialog {
 						@Override
 						public void mouseClicked(MouseEvent e) {
 							int selectedrow = tablagrupohorario.getSelectedRow();
-							if (selectedrow > 0) {
+							if (selectedrow >= 0) {
 								btneliminar.setEnabled(true);
 							}
 						}
@@ -110,6 +112,10 @@ public class ListadoGrupoHorario extends JDialog {
 				btncancelar.setActionCommand("Cancel");
 				buttonPane.add(btncancelar);
 			}
+		}
+		if (listener != null) {
+			this.listener = listener;
+			btneliminar.setText("Seleccionar");
 		}
 		loadListado(model);
 	}

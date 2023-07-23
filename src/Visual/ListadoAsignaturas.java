@@ -24,6 +24,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Database.ConexionDB;
+import logico.SelectionListener;
 
 import javax.swing.UIManager;
 import java.awt.event.ActionListener;
@@ -42,7 +43,7 @@ public class ListadoAsignaturas extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			ListadoAsignaturas dialog = new ListadoAsignaturas();
+			ListadoAsignaturas dialog = new ListadoAsignaturas(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -53,9 +54,10 @@ public class ListadoAsignaturas extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ListadoAsignaturas() {
+	public ListadoAsignaturas(SelectionListener listener) {
 		setTitle("Listado de asignaturas");
 		setBounds(100, 100, 985, 553);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -90,22 +92,31 @@ public class ListadoAsignaturas extends JDialog {
 				btnEliminar = new JButton("Eliminar");
 				btnEliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						int selection = JOptionPane.showOptionDialog(null, "¿Está seguro de que desea continuar?",
-						        "Confirmar eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-						        new Object[] {"Si", "No"}, null);
+						indiceFilaSeleccionada = tablaAsignaturas.getSelectedRow();
 						
-						if(selection == 0) {
-							indiceFilaSeleccionada = tablaAsignaturas.getSelectedRow();
-							if(indiceFilaSeleccionada != -1) {
-								String codigo = (String) tablaAsignaturas.getValueAt(indiceFilaSeleccionada, 0);
-								eliminarAsignatura(codigo);
-								actualizarFilasAsignaturas((DefaultTableModel)tablaAsignaturas.getModel());
-								indiceFilaSeleccionada = -1;
-							}
+						if (listener != null) {
+							Object value = tablaAsignaturas.getValueAt(indiceFilaSeleccionada, 0);
+							listener.setValorSeleccionado(value, "codigo asignatura");
+							dispose();
+						}else {
 							
-							tablaAsignaturas.clearSelection();
-							btnEliminar.setEnabled(false);
-							btnModificar.setEnabled(false);
+						
+							int selection = JOptionPane.showOptionDialog(null, "ï¿½Estï¿½ seguro de que desea continuar?",
+							        "Confirmar eliminaciï¿½n", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+							        new Object[] {"Si", "No"}, null);
+							
+							if(selection == 0) {
+								if(indiceFilaSeleccionada != -1) {
+									String codigo = (String) tablaAsignaturas.getValueAt(indiceFilaSeleccionada, 0);
+									eliminarAsignatura(codigo);
+									actualizarFilasAsignaturas((DefaultTableModel)tablaAsignaturas.getModel());
+									indiceFilaSeleccionada = -1;
+								}
+								
+								tablaAsignaturas.clearSelection();
+								btnEliminar.setEnabled(false);
+								btnModificar.setEnabled(false);
+							}
 						}
 					}
 				});
@@ -145,6 +156,11 @@ public class ListadoAsignaturas extends JDialog {
 				btnCancelar.setActionCommand("Cancel");
 				buttonPane.add(btnCancelar);
 			}
+		}
+		if (listener != null) {
+			btnEliminar.setText("Seleccionar");
+			btnModificar.setEnabled(false);
+			btnModificar.setVisible(false);
 		}
 	}
 

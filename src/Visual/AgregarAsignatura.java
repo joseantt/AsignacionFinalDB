@@ -42,16 +42,16 @@ public class AgregarAsignatura extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		try {
-			AgregarAsignatura dialog = new AgregarAsignatura();
+			AgregarAsignatura dialog = new AgregarAsignatura(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	*/
+	
 	
 	/**
 	 * Create the dialog.
@@ -161,7 +161,7 @@ public class AgregarAsignatura extends JDialog {
 								e2.printStackTrace();
 							}
 							
-							JOptionPane.showMessageDialog(null, "Se ha modificado la asignatura satisfactoriamente", "Información",JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Se ha modificado la asignatura satisfactoriamente", "Informaciï¿½n",JOptionPane.INFORMATION_MESSAGE);
 							dispose();
 						}else {
 							if (txtcodigo.getText().length() != 7)

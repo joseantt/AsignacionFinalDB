@@ -19,22 +19,26 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Database.ConexionDB;
+import logico.SelectionListener;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ListadoPeriodosAcademicos extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTable tablaPeriodos;
+	private JButton btneliminar;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			ListadoPeriodosAcademicos dialog = new ListadoPeriodosAcademicos();
+			ListadoPeriodosAcademicos dialog = new ListadoPeriodosAcademicos(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -45,9 +49,10 @@ public class ListadoPeriodosAcademicos extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ListadoPeriodosAcademicos() {
+	public ListadoPeriodosAcademicos(SelectionListener listener) {
 		setTitle("Listado de periodos acad\u00E9micos");
 		setBounds(100, 100, 1022, 496);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -62,6 +67,14 @@ public class ListadoPeriodosAcademicos extends JDialog {
 				panel.add(scrollPane, BorderLayout.CENTER);
 				{
 					tablaPeriodos = new JTable();
+					tablaPeriodos.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							if (tablaPeriodos.getSelectedRow() >= 0) {
+								btneliminar.setEnabled(true);
+							}
+						}
+					});
 					tablaPeriodos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 					String[] columnas = {"CodPeriodoAcad", "Descripcion", "FechaInicio", "FehcaFin", "FechaInicioClases",
 							"FechaFinClases", "FechaLimitePago", "FechaLimitePrematricula", "FechaLimiteRetiro", "FechaLimitePublicacion"};
@@ -84,9 +97,29 @@ public class ListadoPeriodosAcademicos extends JDialog {
 						dispose();
 					}
 				});
+				{
+					btneliminar = new JButton("Eliminar");
+					btneliminar.setEnabled(false);
+					btneliminar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							int selectedrow = tablaPeriodos.getSelectedRow();
+							if (listener != null) {
+								Object value = tablaPeriodos.getValueAt(selectedrow, 0);
+								listener.setValorSeleccionado(value,"periodo academico");
+								dispose();
+							}else {
+								
+							}
+						}
+					});
+					buttonPane.add(btneliminar);
+				}
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
+		}
+		if (listener != null) {
+			btneliminar.setText("Seleccionar");
 		}
 	}
 	

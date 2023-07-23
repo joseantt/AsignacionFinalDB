@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Database.ConexionDB;
+import Visual.Inscripcion.selectionlistener;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -31,13 +32,14 @@ public class ListadoGrupo extends JDialog {
 	private JButton btneliminar;
 	private JButton btnActualizar;
 	private DefaultTableModel model;
+	private selectionlistener listener;
 
 	/**
 	 * Launch the application.
-	 */
+	 *
 	public static void main(String[] args) {
 		try {
-			ListadoGrupo dialog = new ListadoGrupo();
+			ListadoGrupo dialog = new ListadoGrupo(true);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -48,7 +50,7 @@ public class ListadoGrupo extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ListadoGrupo() {
+	public ListadoGrupo(selectionlistener listener) {
 		setBounds(100, 100, 800, 462);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -68,7 +70,7 @@ public class ListadoGrupo extends JDialog {
 						@Override
 						public void mouseClicked(MouseEvent e) {
 							int selectedrow = listagrupo.getSelectedRow();
-							if (selectedrow > 0) {
+							if (selectedrow >= 0) {
 								btneliminar.setEnabled(true);
 							}
 						}
@@ -98,11 +100,17 @@ public class ListadoGrupo extends JDialog {
 			}
 			{
 				btneliminar = new JButton("Eliminar");
-				btneliminar.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
+				btneliminar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int selectedRow = listagrupo.getSelectedRow();
+				        if (selectedRow >= 0 && listener != null) {
+				            Object value = model.getValueAt(selectedRow, 0);
+				            listener.setValorSeleccionado(value);
+				            dispose();
+				        }
 					}
 				});
+				
 				btneliminar.setEnabled(false);
 				btneliminar.setActionCommand("OK");
 				buttonPane.add(btneliminar);
@@ -119,8 +127,13 @@ public class ListadoGrupo extends JDialog {
 				buttonPane.add(btncancelar);
 			}
 		}
+		if (listener != null) {
+			this.listener = listener;
+			btneliminar.setText("Seleccionar");
+		}
 		loadListado(model);
 	}
+	
 
 	private void loadListado(DefaultTableModel model) {
 		
