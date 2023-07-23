@@ -78,8 +78,8 @@ public class ListadoPeriodosAcademicos extends JDialog {
 						}
 					});
 					tablaPeriodos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-					String[] columnas = {"CodPeriodoAcad", "Descripcion", "FechaInicio", "FehcaFin", "FechaInicioClases",
-							"FechaFinClases", "FechaLimitePago", "FechaLimitePrematricula", "FechaLimiteRetiro", "FechaLimitePublicacion"};
+					String[] columnas = {"Periodo Acad.", "Descripcion", "Fecha Inicio", "Fecha Fin", "Inicio Clases",
+							"Fin Clases", "Limite Pago", "Limite Prematricula", "Limite Retiro", "Limite Publicacion"};
 					model = (DefaultTableModel) tablaPeriodos.getModel();
 					model.setColumnIdentifiers(columnas);
 					actualizarFilasPeriodoAcad(model);
