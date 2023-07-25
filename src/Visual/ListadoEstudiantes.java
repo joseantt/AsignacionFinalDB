@@ -35,6 +35,7 @@ public class ListadoEstudiantes extends JDialog {
 	private int indiceFilaSeleccionada;
 	private DefaultTableModel model;
 	private JButton btnactualizar;
+	private JButton cancelButton;
 
 	/**
 	 * Launch the application.
@@ -153,7 +154,7 @@ public class ListadoEstudiantes extends JDialog {
 				buttonPane.add(btn_eliminar);
 			}
 			{
-				JButton cancelButton = new JButton("Cancelar");
+				cancelButton = new JButton("Cancelar");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();

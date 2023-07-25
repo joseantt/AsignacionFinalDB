@@ -55,6 +55,7 @@ public class ListadoGrupo extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListadoGrupo(SelectionListener listener) {
+		setTitle("Lista de Grupos");
 		setBounds(100, 100, 800, 462);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -115,8 +116,8 @@ public class ListadoGrupo extends JDialog {
 				            listener.setValorSeleccionado(value,"numero grupo");
 				            dispose();
 				        }else {
-							int option = JOptionPane.showOptionDialog(null, "�Est� seguro de que desea continuar?",
-							        "Confirmar eliminaci�n", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+							int option = JOptionPane.showOptionDialog(null, "Esta seguro de que desea continuar?",
+							        "Confirmar eliminacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 							        new Object[] {"Si", "No"}, null);
 							if (option == 0) {
 								eliminarGrupo(listagrupo.getValueAt(selectedRow, 0).toString(),
@@ -140,6 +141,7 @@ public class ListadoGrupo extends JDialog {
 									listagrupo.getValueAt(row, 2).toString(), listagrupo.getValueAt(row, 1).toString());
 							grupo.setVisible(true);
 							grupo.setModal(true);
+							loadListado(model);
 						}
 					});
 					btnmodificar.setEnabled(false);
@@ -164,6 +166,8 @@ public class ListadoGrupo extends JDialog {
 		}
 		if (listener != null) {
 			btneliminar.setText("Seleccionar");
+			btnmodificar.setEnabled(false);
+			btnmodificar.setVisible(false);
 		}
 		loadListado(model);
 	}
@@ -180,10 +184,11 @@ public class ListadoGrupo extends JDialog {
 			
 			conexion.close();
 			JOptionPane.showMessageDialog(null,"Eliminacion exitosa","Informacion",JOptionPane.INFORMATION_MESSAGE);
+			loadListado(model);
 		}
 		catch(SQLException e) {
-			JOptionPane.showMessageDialog(null,"No fue posible eliminar el grupo","Error",JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"No fue posible eliminar el grupo","Error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

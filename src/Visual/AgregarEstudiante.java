@@ -34,6 +34,8 @@ public class AgregarEstudiante extends JDialog {
 	private JComboBox cbx_Carrera;
 	private JComboBox cbx_Nacionalidad;
 	private JComboBox cbx_Pago;
+	private JButton cancelButton;
+	private JButton okButton;
 
 	/**
 	 * Launch the application.
@@ -146,7 +148,7 @@ public class AgregarEstudiante extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("Agregar");
+				okButton = new JButton("Agregar");
 				if(matricula != null)
 					okButton.setText("Modificar");
 				
@@ -185,7 +187,7 @@ public class AgregarEstudiante extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancelar");
+				cancelButton = new JButton("Cancelar");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

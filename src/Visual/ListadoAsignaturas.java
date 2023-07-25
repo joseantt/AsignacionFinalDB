@@ -39,6 +39,7 @@ public class ListadoAsignaturas extends JDialog {
 	private int indiceFilaSeleccionada = -1;
 	private JButton btnactualizar;
 	private DefaultTableModel model;
+	private JButton btnCancelar;
 
 	/**
 	 * Launch the application.
@@ -103,8 +104,8 @@ public class ListadoAsignaturas extends JDialog {
 						}else {
 							
 						
-							int selection = JOptionPane.showOptionDialog(null, "�Est� seguro de que desea continuar?",
-							        "Confirmar eliminaci�n", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+							int selection = JOptionPane.showOptionDialog(null, "Esta seguro de que desea continuar?",
+							        "Confirmar eliminacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 							        new Object[] {"Si", "No"}, null);
 							
 							if(selection == 0) {
@@ -160,7 +161,7 @@ public class ListadoAsignaturas extends JDialog {
 				getRootPane().setDefaultButton(btnModificar);
 			}
 			{
-				JButton btnCancelar = new JButton("Cancelar");
+				btnCancelar = new JButton("Cancelar");
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();
@@ -208,14 +209,14 @@ public class ListadoAsignaturas extends JDialog {
 		try {
 			String sql = "DELETE FROM Asignatura WHERE CodAsignatura = " + "'"+codigo+"'";
 			Statement stm = conexion.createStatement();
-			int result = stm.executeUpdate(sql);
-			
-			//Hacer limitacion para delete
+			stm.executeUpdate(sql);
 			
 			conexion.close();
+			JOptionPane.showMessageDialog(null,"Eliminacion exitosa","Informacion",JOptionPane.INFORMATION_MESSAGE);
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"No fue posible eliminar","Error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

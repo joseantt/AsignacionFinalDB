@@ -39,6 +39,7 @@ public class Grupo extends JDialog implements SelectionListener {
 	private JSpinner spncupo;
 	private JButton btncodasignatura;
 	private JButton btncrear;
+	private JButton btncancelar;
 
 	/**
 	 * Launch the application.
@@ -180,7 +181,7 @@ public class Grupo extends JDialog implements SelectionListener {
 				getRootPane().setDefaultButton(btncrear);
 			}
 			{
-				JButton btncancelar = new JButton("Cancelar");
+				btncancelar = new JButton("Cancelar");
 				btncancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
