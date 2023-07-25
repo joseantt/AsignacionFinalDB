@@ -62,7 +62,7 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 	 */
 	public GrupoHorario(String codPeriodoAcad, String codAsignatura, String numGrupo) {
 		setTitle("Crear Horario de grupo");
-		setBounds(100, 100, 660, 418);
+		setBounds(100, 100, 610, 347);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -80,7 +80,7 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 			}
 			{
 				JLabel lblCodigoDeAsignatura = new JLabel("Codigo de asignatura:");
-				lblCodigoDeAsignatura.setBounds(264, 22, 148, 17);
+				lblCodigoDeAsignatura.setBounds(286, 22, 148, 17);
 				panel.add(lblCodigoDeAsignatura);
 			}
 			{
@@ -95,12 +95,12 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 			}
 			{
 				JLabel lblFechaInicial = new JLabel("Fecha inicial:");
-				lblFechaInicial.setBounds(264, 101, 107, 17);
+				lblFechaInicial.setBounds(286, 101, 107, 17);
 				panel.add(lblFechaInicial);
 			}
 			{
 				JLabel lblFechaFinal = new JLabel("Fecha final:");
-				lblFechaFinal.setBounds(264, 171, 89, 17);
+				lblFechaFinal.setBounds(286, 171, 89, 17);
 				panel.add(lblFechaFinal);
 			}
 			{
@@ -113,7 +113,7 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 			{
 				txtcodasignatura = new JTextField();
 				txtcodasignatura.setEditable(false);
-				txtcodasignatura.setBounds(264, 51, 148, 21);
+				txtcodasignatura.setBounds(286, 51, 148, 21);
 				panel.add(txtcodasignatura);
 				txtcodasignatura.setColumns(10);
 			}
@@ -128,13 +128,13 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 			{
 				spnfechainicial = new JSpinner();
 				spnfechainicial.setModel(new SpinnerDateModel(new Date(1689912000000L), null, null, Calendar.DAY_OF_YEAR));
-				spnfechainicial.setBounds(264, 130, 154, 22);
+				spnfechainicial.setBounds(286, 130, 154, 22);
 				panel.add(spnfechainicial);
 			}
 			{
 				spnfechafinal = new JSpinner();
 				spnfechafinal.setModel(new SpinnerDateModel(new Date(1689912000000L), null, null, Calendar.DAY_OF_YEAR));
-				spnfechafinal.setBounds(264, 200, 148, 22);
+				spnfechafinal.setBounds(286, 200, 148, 22);
 				panel.add(spnfechafinal);
 			}
 			{
@@ -155,7 +155,7 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 						periodosAcademicos.setModal(true);
 					}
 				});
-				btnperiodoacad.setBounds(165, 50, 89, 23);
+				btnperiodoacad.setBounds(165, 50, 107, 23);
 				panel.add(btnperiodoacad);
 			}
 			{
@@ -169,7 +169,7 @@ public class GrupoHorario extends JDialog implements SelectionListener{
 						asignaturas.setModal(true);
 					}
 				});
-				btnasignatura.setBounds(437, 50, 89, 23);
+				btnasignatura.setBounds(444, 50, 107, 23);
 				panel.add(btnasignatura);
 			}
 		}

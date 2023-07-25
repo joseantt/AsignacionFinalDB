@@ -61,7 +61,7 @@ public class AgregarPeriodoAcademico extends JDialog {
 	 */
 	public AgregarPeriodoAcademico() {
 		setTitle("Agregar Periodo Acad\u00E9mico");
-		setBounds(100, 100, 690, 499);
+		setBounds(100, 100, 690, 459);
 		setLocationRelativeTo(null);
 		setModal(true);
 		getContentPane().setLayout(new BorderLayout());
@@ -71,12 +71,12 @@ public class AgregarPeriodoAcademico extends JDialog {
 		{
 			JPanel panel = new JPanel();
 			panel.setBorder(new EmptyBorder(0, 0, 0, 0));
-			panel.setBounds(45, 28, 610, 60);
+			panel.setBounds(46, 11, 610, 81);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
 				JLabel lblNewLabel = new JLabel("C\u00F3digo:");
-				lblNewLabel.setBounds(0, 0, 56, 19);
+				lblNewLabel.setBounds(0, 18, 56, 19);
 				panel.add(lblNewLabel);
 			}
 			{
@@ -89,114 +89,114 @@ public class AgregarPeriodoAcademico extends JDialog {
 						}
 					}
 				});
-				txtcodigo.setBounds(0, 31, 223, 22);
+				txtcodigo.setBounds(0, 48, 223, 22);
 				panel.add(txtcodigo);
 				txtcodigo.setColumns(10);
 			}
 			{
 				JLabel lblDescripcin = new JLabel("Descripci\u00F3n:");
-				lblDescripcin.setBounds(306, 1, 85, 16);
+				lblDescripcin.setBounds(306, 19, 85, 16);
 				panel.add(lblDescripcin);
 			}
 			{
 				txtdescripcion = new JTextField();
-				txtdescripcion.setBounds(306, 31, 300, 22);
+				txtdescripcion.setBounds(306, 48, 300, 22);
 				panel.add(txtdescripcion);
 				txtdescripcion.setColumns(10);
 			}
 		}
 		{
 			JLabel lblFechaDeInicio = new JLabel("Fecha de Inicio:");
-			lblFechaDeInicio.setBounds(46, 120, 101, 16);
+			lblFechaDeInicio.setBounds(46, 103, 101, 16);
 			contentPanel.add(lblFechaDeInicio);
 		}
 		
 		spn_FechaInicio = new JSpinner();
 		spn_FechaInicio.setModel(new SpinnerDateModel(new Date(1689825600000L), null, null, Calendar.DAY_OF_YEAR));
-		spn_FechaInicio.setBounds(46, 148, 200, 22);
+		spn_FechaInicio.setBounds(46, 131, 200, 22);
 		spn_FechaInicio.setEditor(new JSpinner.DateEditor(spn_FechaInicio,"yyyy-MM-dd"));
 		contentPanel.add(spn_FechaInicio);
 		{
 			JLabel lblFechaDeFin = new JLabel("Fecha Fin:");
-			lblFechaDeFin.setBounds(352, 120, 75, 16);
+			lblFechaDeFin.setBounds(352, 103, 75, 16);
 			contentPanel.add(lblFechaDeFin);
 		}
 		{
 			spn_FechaFin = new JSpinner();
 			spn_FechaFin.setModel(new SpinnerDateModel(new Date(1689825600000L), null, null, Calendar.DAY_OF_YEAR));
-			spn_FechaFin.setBounds(352, 148, 200, 22);
+			spn_FechaFin.setBounds(352, 131, 200, 22);
 			spn_FechaFin.setEditor(new JSpinner.DateEditor(spn_FechaFin,"yyyy-MM-dd"));
 			contentPanel.add(spn_FechaFin);
 		}
 		{
 			JLabel lblFechaDeInicio_1 = new JLabel("Fecha inicio de clases:");
-			lblFechaDeInicio_1.setBounds(46, 193, 139, 16);
+			lblFechaDeInicio_1.setBounds(46, 176, 139, 16);
 			contentPanel.add(lblFechaDeInicio_1);
 		}
 		{
 			spn_FechaInicioClases = new JSpinner();
 			spn_FechaInicioClases.setModel(new SpinnerDateModel(new Date(1689825600000L), null, null, Calendar.DAY_OF_YEAR));
-			spn_FechaInicioClases.setBounds(46, 221, 200, 22);
+			spn_FechaInicioClases.setBounds(46, 204, 200, 22);
 			spn_FechaInicioClases.setEditor(new JSpinner.DateEditor(spn_FechaInicioClases,"yyyy-MM-dd"));
 			contentPanel.add(spn_FechaInicioClases);
 		}
 		{
 			JLabel lblFechaFinDe = new JLabel("Fecha fin de clases:");
-			lblFechaFinDe.setBounds(352, 193, 126, 16);
+			lblFechaFinDe.setBounds(352, 176, 126, 16);
 			contentPanel.add(lblFechaFinDe);
 		}
 		{
 			spn_FechaFinClases = new JSpinner();
 			spn_FechaFinClases.setModel(new SpinnerDateModel(new Date(1689825600000L), null, null, Calendar.DAY_OF_YEAR));
-			spn_FechaFinClases.setBounds(352, 221, 200, 22);
+			spn_FechaFinClases.setBounds(352, 204, 200, 22);
 			spn_FechaFinClases.setEditor(new JSpinner.DateEditor(spn_FechaFinClases,"yyyy-MM-dd"));
 			contentPanel.add(spn_FechaFinClases);
 		}
 		{
 			JLabel lblFechaLimite = new JLabel("Fecha limite para retiro:");
-			lblFechaLimite.setBounds(46, 327, 175, 16);
+			lblFechaLimite.setBounds(46, 310, 175, 16);
 			contentPanel.add(lblFechaLimite);
 		}
 		{
 			JLabel lblFechaLimitePago = new JLabel("Fecha limite pago:");
-			lblFechaLimitePago.setBounds(46, 260, 139, 16);
+			lblFechaLimitePago.setBounds(46, 243, 139, 16);
 			contentPanel.add(lblFechaLimitePago);
 		}
 		{
 			spn_FechaLimitePago = new JSpinner();
 			spn_FechaLimitePago.setModel(new SpinnerDateModel(new Date(1689825600000L), null, null, Calendar.DAY_OF_YEAR));
-			spn_FechaLimitePago.setBounds(46, 288, 200, 22);
+			spn_FechaLimitePago.setBounds(46, 271, 200, 22);
 			spn_FechaLimitePago.setEditor(new JSpinner.DateEditor(spn_FechaLimitePago,"yyyy-MM-dd"));
 			contentPanel.add(spn_FechaLimitePago);
 		}
 		{
 			spn_FechaLimiteRetiro = new JSpinner();
 			spn_FechaLimiteRetiro.setModel(new SpinnerDateModel(new Date(1689825600000L), null, null, Calendar.DAY_OF_YEAR));
-			spn_FechaLimiteRetiro.setBounds(46, 355, 200, 22);
+			spn_FechaLimiteRetiro.setBounds(46, 338, 200, 22);
 			spn_FechaLimiteRetiro.setEditor(new JSpinner.DateEditor(spn_FechaLimiteRetiro,"yyyy-MM-dd"));
 			contentPanel.add(spn_FechaLimiteRetiro);
 		}
 		{
 			JLabel lblFechaLimitePrematrcula = new JLabel("Fecha limite prematr\u00EDcula:");
-			lblFechaLimitePrematrcula.setBounds(352, 260, 175, 16);
+			lblFechaLimitePrematrcula.setBounds(352, 243, 175, 16);
 			contentPanel.add(lblFechaLimitePrematrcula);
 		}
 		{
 			spn_FechaLimitePrematricula = new JSpinner();
 			spn_FechaLimitePrematricula.setModel(new SpinnerDateModel(new Date(1689825600000L), null, null, Calendar.DAY_OF_YEAR));
-			spn_FechaLimitePrematricula.setBounds(352, 288, 200, 22);
+			spn_FechaLimitePrematricula.setBounds(352, 271, 200, 22);
 			spn_FechaLimitePrematricula.setEditor(new JSpinner.DateEditor(spn_FechaLimitePrematricula,"yyyy-MM-dd"));
 			contentPanel.add(spn_FechaLimitePrematricula);
 		}
 		{
 			JLabel lblFechaLimitePara = new JLabel("Fecha limite publicaci\u00F3n:");
-			lblFechaLimitePara.setBounds(352, 327, 156, 16);
+			lblFechaLimitePara.setBounds(352, 310, 156, 16);
 			contentPanel.add(lblFechaLimitePara);
 		}
 		{
 			spn_FechaLimitePublicacion = new JSpinner();
 			spn_FechaLimitePublicacion.setModel(new SpinnerDateModel(new Date(1689825600000L), null, null, Calendar.DAY_OF_YEAR));
-			spn_FechaLimitePublicacion.setBounds(352, 355, 200, 22);
+			spn_FechaLimitePublicacion.setBounds(352, 338, 200, 22);
 			spn_FechaLimitePublicacion.setEditor(new JSpinner.DateEditor(spn_FechaLimitePublicacion,"yyyy-MM-dd"));
 			contentPanel.add(spn_FechaLimitePublicacion);
 		}

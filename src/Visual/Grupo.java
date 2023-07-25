@@ -58,7 +58,7 @@ public class Grupo extends JDialog implements SelectionListener {
 	 */
 	public Grupo(String numgrupo, String codperiodo, String codasignatura) {
 		setTitle("Crear Grupo");
-		setBounds(100, 100, 577, 402);
+		setBounds(100, 100, 392, 509);
 		getContentPane().setLayout(new BorderLayout());
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -72,53 +72,53 @@ public class Grupo extends JDialog implements SelectionListener {
 			panel.setLayout(null);
 			
 			JLabel lblCodigoPeriodoAcademico = new JLabel("Codigo periodo academico:");
-			lblCodigoPeriodoAcademico.setBounds(223, 24, 180, 17);
+			lblCodigoPeriodoAcademico.setBounds(26, 175, 180, 17);
 			panel.add(lblCodigoPeriodoAcademico);
 			{
 				JLabel lblNewLabel = new JLabel("Codigo de asignatura:");
-				lblNewLabel.setBounds(12, 97, 144, 17);
+				lblNewLabel.setBounds(26, 97, 144, 17);
 				panel.add(lblNewLabel);
 			}
 			{
 				JLabel lblNumeroDeGrupo = new JLabel("Numero de grupo:");
-				lblNumeroDeGrupo.setBounds(12, 24, 144, 17);
+				lblNumeroDeGrupo.setBounds(26, 24, 144, 17);
 				panel.add(lblNumeroDeGrupo);
 			}
 			{
 				JLabel lblCupoDeGrupo = new JLabel("Cupo de grupo:");
-				lblCupoDeGrupo.setBounds(12, 173, 109, 17);
+				lblCupoDeGrupo.setBounds(26, 322, 109, 17);
 				panel.add(lblCupoDeGrupo);
 			}
 			{
 				JLabel lblHorario = new JLabel("Horario:");
-				lblHorario.setBounds(312, 97, 70, 17);
+				lblHorario.setBounds(26, 251, 70, 17);
 				panel.add(lblHorario);
 			}
 			
 			spncupo = new JSpinner();
 			spncupo.setModel(new SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
-			spncupo.setBounds(12, 202, 83, 22);
+			spncupo.setBounds(26, 351, 83, 22);
 			panel.add(spncupo);
 			
 			txtnumerogrupo = new JTextField();
-			txtnumerogrupo.setBounds(12, 53, 144, 21);
+			txtnumerogrupo.setBounds(26, 53, 144, 21);
 			panel.add(txtnumerogrupo);
 			txtnumerogrupo.setColumns(10);
 			
 			txtcodperiodoacad = new JTextField();
 			txtcodperiodoacad.setEditable(false);
-			txtcodperiodoacad.setBounds(223, 53, 144, 21);
+			txtcodperiodoacad.setBounds(26, 204, 144, 21);
 			panel.add(txtcodperiodoacad);
 			txtcodperiodoacad.setColumns(10);
 			
 			txthorario = new JTextField();
-			txthorario.setBounds(312, 126, 169, 21);
+			txthorario.setBounds(26, 280, 144, 21);
 			panel.add(txthorario);
 			txthorario.setColumns(10);
 			
 			txtcodasignatura = new JTextField();
 			txtcodasignatura.setEditable(false);
-			txtcodasignatura.setBounds(12, 126, 144, 21);
+			txtcodasignatura.setBounds(26, 126, 144, 21);
 			panel.add(txtcodasignatura);
 			txtcodasignatura.setColumns(10);
 			{
@@ -131,7 +131,7 @@ public class Grupo extends JDialog implements SelectionListener {
 						
 					}
 				});
-				btncodperiodo.setBounds(403, 52, 89, 23);
+				btncodperiodo.setBounds(194, 203, 109, 23);
 				panel.add(btncodperiodo);
 			}
 			{
@@ -143,7 +143,7 @@ public class Grupo extends JDialog implements SelectionListener {
 						asignaturas.setModal(true);
 					}
 				});
-				btncodasignatura.setBounds(180, 125, 89, 23);
+				btncodasignatura.setBounds(194, 125, 109, 23);
 				panel.add(btncodasignatura);
 			}
 		}

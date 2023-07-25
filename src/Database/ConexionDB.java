@@ -63,27 +63,30 @@ public class ConexionDB {
 
 	    return sql.toString();
 	}
-	 public static ResultSet buscarFilasTabla(String nombreTabla, String[] pkNombres, String[] pkValores, int cantElementosPk) {
-        try (Connection conexion = conectarDB()) {
-            String sql = queryBuscar(nombreTabla, pkNombres, cantElementosPk);
-            PreparedStatement p = conexion.prepareStatement(sql);
+	public static ResultSet buscarFilasTabla(String nombreTabla, String[] pkNombres, String[] pkValores, int cantElementosPk) {
+		try {
+			Connection conexion = conectarDB();
+			String sql = queryBuscar(nombreTabla, pkNombres, pkValores, cantElementosPk);
+			PreparedStatement p = conexion.prepareStatement(sql);
+			ResultSet rs = p.executeQuery();
+			return rs;
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
-            for (int i = 0; i < cantElementosPk; i++) {
-                p.setString(i + 1, pkValores[i]);
-            }
-
-            return p.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+	private static String queryBuscar(String nombreTabla, String[] pkNombres, String[] pkValores, int cantElementosPk) {
+	    StringBuilder sql = new StringBuilder("SELECT * FROM ").append(nombreTabla).append(" WHERE ");
+	    for (int i = 0; i < cantElementosPk; i++) {
+	        sql.append(nombreTabla).append('.').append(pkNombres[i]).append(" = ").append("'").append(pkValores[i]).append("'");
+	        if (i != cantElementosPk - 1) {
+	            sql.append(" AND ");
 	        }
-    }
-
-    private static String queryBuscar(String nombreTabla, String[] pkNombres, int cantElementosPk) {
-        String placeholders = String.join(" = ? AND ", pkNombres) + " = ?";
-
-        return "SELECT * FROM " + nombreTabla + " WHERE " + placeholders;
-    }
+	    }
+	    return sql.toString();
+	}
 
 	
 	public static void updateTabla(String nombreTabla, String[]columnas, String[] valores, int cantColumns, String[]Pks, String[] valoresPks, int cantPk) {

@@ -116,6 +116,7 @@ public class HorarioEstudiante extends JDialog {
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Verifique que los campos esten correctamente insertados","Error",JOptionPane.ERROR_MESSAGE);
 		} 
 	}
 

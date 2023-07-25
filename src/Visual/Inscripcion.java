@@ -60,7 +60,7 @@ public class Inscripcion extends JDialog implements SelectionListener{
 	 */
 	public Inscripcion() {
 		setTitle("Inscripcion");
-		setBounds(100, 100, 450, 408);
+		setBounds(100, 100, 379, 408);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -73,12 +73,12 @@ public class Inscripcion extends JDialog implements SelectionListener{
 			panel.setLayout(null);
 			{
 				lblNewLabel = new JLabel("Codigo de periodo academico:");
-				lblNewLabel.setBounds(12, 30, 195, 17);
+				lblNewLabel.setBounds(12, 103, 195, 17);
 				panel.add(lblNewLabel);
 			}
 			{
 				lblMatricula = new JLabel("Matricula:");
-				lblMatricula.setBounds(12, 100, 72, 17);
+				lblMatricula.setBounds(12, 31, 72, 17);
 				panel.add(lblMatricula);
 			}
 			{
@@ -94,13 +94,13 @@ public class Inscripcion extends JDialog implements SelectionListener{
 			{
 				txtcodperiodoacad = new JTextField();
 				txtcodperiodoacad.setEditable(false);
-				txtcodperiodoacad.setBounds(12, 59, 167, 21);
+				txtcodperiodoacad.setBounds(12, 131, 167, 21);
 				panel.add(txtcodperiodoacad);
 				txtcodperiodoacad.setColumns(10);
 			}
 			{
 				txtmatricula = new JTextField();
-				txtmatricula.setBounds(12, 129, 167, 21);
+				txtmatricula.setBounds(12, 59, 167, 21);
 				panel.add(txtmatricula);
 				txtmatricula.setColumns(10);
 			}
@@ -127,7 +127,7 @@ public class Inscripcion extends JDialog implements SelectionListener{
 					periodosAcademicos.setModal(true);
 				}
 			});
-			btnselperiodo.setBounds(211, 58, 89, 23);
+			btnselperiodo.setBounds(211, 130, 112, 23);
 			panel.add(btnselperiodo);
 			{
 				btnnumgrupo = new JButton("Seleccionar");
@@ -138,7 +138,7 @@ public class Inscripcion extends JDialog implements SelectionListener{
 						listadoGrupo.setModal(true);
 					}
 				});
-				btnnumgrupo.setBounds(211, 268, 89, 23);
+				btnnumgrupo.setBounds(211, 268, 112, 23);
 				panel.add(btnnumgrupo);
 			}
 			{
@@ -150,7 +150,7 @@ public class Inscripcion extends JDialog implements SelectionListener{
 						asignaturas.setModal(true);
 					}
 				});
-				btnasignatura.setBounds(211, 198, 89, 23);
+				btnasignatura.setBounds(211, 198, 112, 23);
 				panel.add(btnasignatura);
 			}
 		}

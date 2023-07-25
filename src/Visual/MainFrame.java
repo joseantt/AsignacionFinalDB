@@ -59,6 +59,7 @@ public class MainFrame extends JFrame {
 				ListadoEstudiantes ListadoE = new ListadoEstudiantes();
 				ListadoE.setVisible(true);
 				ListadoE.setLocationRelativeTo(null);
+				ListadoE.setModal(true);
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);
@@ -68,6 +69,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				AgregarEstudiante agregarEstudiante = new AgregarEstudiante(null);
 				agregarEstudiante.setVisible(true);
+				agregarEstudiante.setModal(true);
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_2);
@@ -102,6 +104,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ListadoInscripcion ListInsc = new ListadoInscripcion();
 				ListInsc.setVisible(true);
+				ListInsc.setModal(true);
 			}
 		});
 		mnNewMenu_4.add(mntmNewMenuItem_9);
@@ -111,6 +114,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Inscripcion insc = new Inscripcion();
 				insc.setVisible(true);
+				insc.setModal(true);
 			}
 		});
 		mnNewMenu_4.add(mntmNewMenuItem_7);
@@ -166,6 +170,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ListadoGrupoHorario listGrupoHorario = new ListadoGrupoHorario(null);
 				listGrupoHorario.setVisible(true);
+				listGrupoHorario.setModal(true);
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_6);
@@ -175,6 +180,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				GrupoHorario gH = new GrupoHorario(null, null, null);
 				gH.setVisible(true);
+				gH.setModal(true);
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_4);

@@ -132,6 +132,9 @@ public class ListadoPeriodosAcademicos extends JDialog {
 		}
 		if (listener != null) {
 			btneliminar.setText("Seleccionar");
+		}else {
+			btneliminar.setEnabled(false);
+			btneliminar.setVisible(false);
 		}
 	}
 	
