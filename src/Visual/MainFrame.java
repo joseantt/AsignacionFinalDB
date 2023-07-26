@@ -59,7 +59,7 @@ public class MainFrame extends JFrame {
 				ListadoEstudiantes ListadoE = new ListadoEstudiantes();
 				ListadoE.setVisible(true);
 				ListadoE.setLocationRelativeTo(null);
-				ListadoE.setModal(true);
+				
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);
@@ -69,7 +69,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				AgregarEstudiante agregarEstudiante = new AgregarEstudiante(null);
 				agregarEstudiante.setVisible(true);
-				agregarEstudiante.setModal(true);
+				
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_2);
@@ -79,7 +79,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				BuscarEstudiante buscarEstudiante = new BuscarEstudiante(null);
 				buscarEstudiante.setVisible(true);
-				buscarEstudiante.setModal(true);
+				
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem);
@@ -90,7 +90,7 @@ public class MainFrame extends JFrame {
 				BuscarEstudiante buscarEstudiante = new BuscarEstudiante("Inscripciones");
 				buscarEstudiante.setLocationRelativeTo(null);
 				buscarEstudiante.setVisible(true);
-				buscarEstudiante.setModal(true);
+				
 				
 			}
 		});
@@ -104,7 +104,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ListadoInscripcion ListInsc = new ListadoInscripcion();
 				ListInsc.setVisible(true);
-				ListInsc.setModal(true);
+				
 			}
 		});
 		mnNewMenu_4.add(mntmNewMenuItem_9);
@@ -114,7 +114,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Inscripcion insc = new Inscripcion();
 				insc.setVisible(true);
-				insc.setModal(true);
+				
 			}
 		});
 		mnNewMenu_4.add(mntmNewMenuItem_7);
@@ -127,7 +127,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ListadoAsignaturas asignaturas = new ListadoAsignaturas(null);
 				asignaturas.setVisible(true);
-				asignaturas.setModal(true);
+				
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_14);
@@ -137,7 +137,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				AgregarAsignatura agregarAsignatura = new AgregarAsignatura(null);
 				agregarAsignatura.setVisible(true);
-				agregarAsignatura.setModal(true);
+				
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_5);
@@ -150,7 +150,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ListadoGrupo listadoGrupo = new ListadoGrupo(null);
 				listadoGrupo.setVisible(true);
-				listadoGrupo.setModal(true);
+				
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_15);
@@ -160,7 +160,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Grupo grupo = new Grupo(null,null,null);
 				grupo.setVisible(true);
-				grupo.setModal(true);
+				
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_8);
@@ -170,7 +170,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ListadoGrupoHorario listGrupoHorario = new ListadoGrupoHorario(null);
 				listGrupoHorario.setVisible(true);
-				listGrupoHorario.setModal(true);
+				
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_6);
@@ -180,7 +180,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				GrupoHorario gH = new GrupoHorario(null, null, null);
 				gH.setVisible(true);
-				gH.setModal(true);
+			
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_4);
@@ -193,7 +193,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ListadoPeriodosAcademicos periodosAcademicos = new ListadoPeriodosAcademicos(null);
 				periodosAcademicos.setVisible(true);
-				periodosAcademicos.setModal(true);
+				
 			}
 		});
 		mnNewMenu_3.add(mntmVi);
@@ -203,7 +203,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				AgregarPeriodoAcademico agregarPeriodoAcademico = new AgregarPeriodoAcademico();
 				agregarPeriodoAcademico.setVisible(true);
-				agregarPeriodoAcademico.setModal(true);
+				
 			}
 		});
 		mnNewMenu_3.add(mntmNewMenuItem_11);
